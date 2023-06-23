@@ -1,0 +1,139 @@
+.library-management-system {
+  font-family: Arial, sans-serif;
+  color: black;
+}
+
+.student-carousel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  padding: 20px;
+}
+
+.student-card {
+  display: flex;
+  align-items: center;
+  width: 330px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.student-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
+  cursor: pointer;
+  background-color: black;
+  color: lightblue;
+}
+
+.student-card img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.student-details {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.student-details h3 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.student-details p {
+  margin: 0;
+  font-size: 12px;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination {
+  list-style: none;
+  display: flex;
+  gap: 10px;
+}
+
+.pagination li {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  height: 30px;
+  width: 30px;
+  font-size: 15px;
+}
+
+.pagination li.active {
+  background-color: #1e88e5;
+  color: white;
+}
+
+.pagination li:hover {
+  background-color: #64b5f6;
+  color: white;
+}
+
+.searchBar {
+  width: 300px;
+}
+
+.footer {
+  background-color: black;
+  padding: 10px;
+  text-align: center;
+}
+
+.footer_container {
+  position: static;
+  min-width: 100vw;
+  margin-top: 35px;
+}
+
+.footer p {
+  color: lightblue;
+  margin: 0;
+  font-size: 20px;
+
+}
+
+.btn_DEL {
+  background-color: red;
+  color: white;
+}
+
+.btn_DEL:hover {
+  background-color: lightcoral;
+}
+
+.name {
+  position: absolute;
+  left: 150px;
+}
+
+.btn_add {
+  height: 50px;
+  width: 50px;
+  color: #fff;
+  font-size: 30px;
+  padding: 5px 10px;
+  border-radius: 50%; 
+}
