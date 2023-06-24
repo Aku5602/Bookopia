@@ -62,7 +62,10 @@ const Students = () => {
 
       <div className="student-carousel">
         {currList.slice(startIndex, endIndex).map((student) => (
-          <StudentCards key={student.id} student={student} />
+          <StudentCards
+            key={student.id}
+            student={student}
+          />
         ))}
       </div>
 
@@ -79,6 +82,7 @@ const Students = () => {
           })}
         </ul>
       </div>
+
       <div className="footer_container">
         <Footer />
       </div>
