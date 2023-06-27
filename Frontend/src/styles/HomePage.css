@@ -19,13 +19,13 @@ body {
     font-size: 62.5%;
 }
 
-.container {
+.HomeContainer {
     display: flex;
     height: 100vh;
     padding: 3rem;
 }
 
-.container__logo {
+.HomeContainer__logo {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -70,7 +70,7 @@ body {
     left: 5rem;
 }
 
-.btn {
+.HomePagebtn {
     display: flex;
     position: absolute;
     top: 20rem;

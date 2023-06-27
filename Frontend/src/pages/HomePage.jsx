@@ -6,8 +6,8 @@ import {Link} from 'react-router-dom';
 const HomePage = () => {
   return (
     <>
-      <div className="container">
-        <div className="container__logo">
+      <div className="HomeContainer">
+        <div className="HomeContainer__logo">
           <Player
             src="https://assets1.lottiefiles.com/packages/lf20_1a8dx7zj.json"
             background="transparent"
@@ -34,7 +34,7 @@ const HomePage = () => {
               Management System
             </span>
           </h1>
-          <div className="btn">
+          <div className="HomePagebtn">
             <Link to="/Students" className="content__btn content__btn--students">
               Manage <span className="break">Students</span>
             </Link>

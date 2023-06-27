@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -8,7 +9,6 @@ const StudentBookInfo = lazy(() => import("./pages/BookStudentInfo"));
 const BookStudentInfo = lazy(() => import("./pages/BookStudentInfo"));
 
 const App = () => {
-
 
   return (
     <>
@@ -21,14 +21,6 @@ const App = () => {
             <Route path="/" element={<HomePage />}></Route>
             <Route path="/Students" element={<Students />}></Route>
             <Route path="/Books" element={<Books />}></Route>
-            <Route
-              path="/Student/BookInfo"
-              element={<StudentBookInfo />}
-            ></Route>
-            <Route
-              path="/Book/StudentInfo"
-              element={<BookStudentInfo />}
-            ></Route>
           </Routes>
         </Suspense>
       </Router>

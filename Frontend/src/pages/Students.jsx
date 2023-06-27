@@ -20,8 +20,6 @@ const Students = () => {
 
   const totalStudents = currList.length; //Will be decided aand given by API call
 
-  //Useffect with Api call to fetch all students data
-
   // Calculate the total number of pages required to show up all the students
   const totalPages = Math.ceil(totalStudents / studentsPerPage);
 
@@ -29,7 +27,6 @@ const Students = () => {
   const endIndex = startIndex + studentsPerPage;
 
   function studentSearch(text) {
-    console.log(text);
     text = text.trim().toLowerCase();
     const arr = studentList.filter((item) => {
       if (

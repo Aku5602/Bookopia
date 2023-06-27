@@ -1,0 +1,98 @@
+.modal-wrapper {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    background-color: rgba(189, 189, 189, .4);
+}
+
+.form-container {
+    position: fixed;
+    top: 12%;
+    right: 2%;
+    background: #212121;
+    padding: 3rem;
+    color: #fff;
+    border-radius: 8px;
+}
+
+h2 {
+    font-size: 2.4rem;
+    font-family: "Work Sans", sans-serif;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+.name-fields {
+    display: flex;
+    justify-content: space-between;
+}
+
+.name-fields input {
+    width: 180px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 10px;
+    background-color: #E0E0E0;
+    color: #212121;
+    border: none;
+    position: relative;
+    border-radius: 5px;
+}
+
+.form-input:focus:before {
+    transform: scaleX(1);
+}
+
+.custom-upload {
+    display: flex;
+    align-items: center;
+}
+
+.custom-upload input[type="file"] {
+    display: none;
+}
+
+.upload-label {
+    background-color: #1E88E5;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn {
+    display: block;
+    width: 100%;
+    background-color: #1E88E5;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.close-button {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    border: none;
+    outline: none;
+    color: #fff;
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+    font-size: 24px;
+    background-color: transparent;
+}

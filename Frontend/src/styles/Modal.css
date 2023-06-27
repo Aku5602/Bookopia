@@ -27,6 +27,7 @@
     padding: 3rem;
     color: #fff;
     border-radius: 8px;
+    font-size: 15px;
 }
 
 .modal_title {
@@ -62,6 +63,8 @@
 
 .modal_btn_close:hover {
     transform: scale(1.2);
+    background: red;
+    color: #fff;
 }
 
 .profile-container {
@@ -97,28 +100,22 @@ input {
 
 .labels {
     margin-bottom: 10px;
+    padding-left: 5px;
 }
 
-
-/* --------------------------------------------------------------------------------------------- */
 .modal-container {
     display: flex;
 }
 
-
-
-
 .col-1-of-2 {
     min-width: 400px;
 }
-
 
 .editDetails {
     flex-grow: 1;
     border-right: 1px solid #ccc;
     flex-basis: 50%;
     padding: 0 10px;
-    /* Adjust the padding as needed */
     padding-right: 20px;
 }
 
@@ -135,7 +132,6 @@ input {
 
 .editDetails {
     margin-right: 10px;
-    /* Adjust the margin as needed */
 }
 
 .book-carousel {
@@ -155,11 +151,11 @@ input {
     box-sizing: border-box;
     height: auto;
     transition: transform all .5 ease;
+    position: relative;
 }
 
 .book-item:hover {
     background: #000;
-    /* color: #000; */
     transform: scale(1.04);
 }
 
@@ -196,3 +192,143 @@ input {
     background-color: green;
     padding: 2px 5px;
 }
+
+.menu-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, .7);
+    color: #000;
+}
+
+.menu-icon:hover {
+    background: rgba(255, 255, 255, 1);
+}
+
+.menu-options {
+    position: absolute;
+    top: 55px;
+    right: 30px;
+    background-color: #212121;
+    border: 1px solid #ccc;
+    color: #fff !important;
+    padding: 5px;
+    list-style-type: none;
+    display: none;
+    z-index: 9999;
+    font-size: 13px;
+    padding: .5rem 1rem;
+    text-align: center;
+    transform: translateY(10px);
+}
+
+.menu-options::before {
+    content: "";
+    position: absolute;
+    top: -8px;
+    right: 10%;
+    transform: translateX(50%);
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid #212121;
+}
+
+.menu-options li a {
+    display: inline-block;
+    margin: 5px 0;
+    text-decoration: none;
+    color: #fff;
+    transition: all .3s ease;
+}
+
+.menu-options li a:hover {
+    transform: scale(1.05);
+    color: #2196f3;
+}
+
+.book-item .menu-options,
+.menu-options:focus,
+.menu-options:focus-within {
+    display: none;
+}
+
+.book-item .menu-icon:focus+.menu-options,
+.menu-options.open {
+    display: block;
+}
+
+.stats {
+    margin: 25px 0;
+}
+
+.fineToBePaid {
+    background: red;
+    padding: .5rem 1rem;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.booksIssued {
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+
+.finePaid {
+    background: green;
+    padding: .2rem .4rem;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+.stats .booksIssued span {
+    background: green;
+    padding: .2rem .4rem;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+.stats>span {
+    background: green;
+    padding: .2rem .4rem;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+.stats>button {
+    margin: 0;
+    padding: .5rem 1.5rem;
+    font-size: 15px;
+}
+
+.nonEditable-field {
+    color: #fff;
+    cursor: not-allowed;
+}
+
+.edit-icon {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .tooltip {
+    position: absolute;
+    top: 50%;
+    left: calc(100% + 10px);
+    transform: translateY(-50%);
+    padding: 5px;
+    background-color: #000;
+    color: #fff;
+    font-size: 12px;
+    border-radius: 3px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+  
+  .edit-icon:hover .tooltip {
+    opacity: 1;
+  }
+  
