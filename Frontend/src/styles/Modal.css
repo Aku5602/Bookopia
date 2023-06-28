@@ -134,7 +134,7 @@ input {
     margin-right: 10px;
 }
 
-.book-carousel {
+.Modal__book-carousel {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
@@ -332,3 +332,6 @@ input {
     opacity: 1;
   }
   
+  .issueBook {
+    margin-bottom: 20px;
+  }

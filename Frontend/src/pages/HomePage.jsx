@@ -1,7 +1,7 @@
 // import React from 'react'
 import "../styles/HomePage.css";
 import { Player, Controls } from '@lottiefiles/react-lottie-player';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const HomePage = () => {
   return (

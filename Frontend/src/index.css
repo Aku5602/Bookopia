@@ -82,5 +82,14 @@ button:hover {
   background-color: #64b5f6;
 }
 
+.no-results {
+  color: red;
+  font-size: 20px;
+  display: block;
+  margin: auto 0;
+  background: #000;
+  padding: 1rem 4rem;
+  border-radius: 8px;
+}
 
 /* ---------------------------------------------------------------------------------- */

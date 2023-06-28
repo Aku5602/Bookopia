@@ -48,4 +48,4 @@ const StudentCards = ({ student }) => {
   )
 }
 
-export default StudentCards
+export default StudentCards;

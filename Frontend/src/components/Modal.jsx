@@ -7,6 +7,7 @@ const Modal = ({ closeModal, selectedStudentId, selectedStudent, books }) => {
     const [selectedBookId, setSelectedBookId] = useState(null);
     const [isEditEnabled, setIsEditEnabled] = useState(false);
     const [editedFieldIndex, setEditedFieldIndex] = useState(null);
+    const [isAddBookClicked, setIsAddBookClicked] = useState(false);
 
     const handleMenuToggle = (bookId) => {
         if (selectedBookId === bookId) {
@@ -25,6 +26,14 @@ const Modal = ({ closeModal, selectedStudentId, selectedStudent, books }) => {
         setIsEditEnabled(false);
         // Implement here the functionality to save the updated student values in altas
     };
+
+    const handleAddBookClick = () => {
+        setIsAddBookClicked(true);
+      };
+
+      const closeAddBook = () => {
+        setIsAddBookClicked(false);
+      }
 
     return (
         <>
@@ -136,14 +145,22 @@ const Modal = ({ closeModal, selectedStudentId, selectedStudent, books }) => {
                                 <span>
                                     Member since: <span>09 Feb 23</span>
                                 </span>
-                                <button>Add a Book</button>
+                                <button onClick={handleAddBookClick}>Add a Book</button>
                             </div>
                         </div>
                     </div>
                 </div>
+
                 <div className="col-1-of-2 bookDetails">
+                    {isAddBookClicked && ( 
+                        <div className="issueBook">
+                            <input type="text" placeholder="Enter BookID" />
+                            <button>Issue Book</button>
+                            <button onClick={closeAddBook}>Cancel</button>
+                        </div>
+                    )}
                     <h3>Books:</h3>
-                    <div className="book-carousel">
+                    <div className="Modal__book-carousel">
                         {books.map((book) => (
                             <div key={book.id} className="book-item">
                                 <button

@@ -10,8 +10,9 @@
 
 .form-container {
     position: fixed;
-    top: 12%;
-    right: 2%;
+    top: 5%;
+    right: 50%;
+    transform: translateX(50%);
     background: #212121;
     padding: 3rem;
     color: #fff;

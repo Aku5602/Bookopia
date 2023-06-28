@@ -5,8 +5,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 const HomePage = lazy(() => import("./pages/HomePage"));
 const Students = lazy(() => import("./pages/Students"));
 const Books = lazy(() => import("./pages/Books"));
-const StudentBookInfo = lazy(() => import("./pages/BookStudentInfo"));
-const BookStudentInfo = lazy(() => import("./pages/BookStudentInfo"));
 
 const App = () => {
 

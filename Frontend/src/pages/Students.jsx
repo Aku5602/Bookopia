@@ -4,23 +4,19 @@ import students from "../data/Student";
 import StudentCards from "../components/StudentCards";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 
 export const StudentContext = createContext();
 
 const Students = () => {
-  // To denote that the current page of the carousel
   const [currentPage, setCurrentPage] = useState(1);
   const [studentList, setStudentList] = useState(students);
   const [currList, setCurrentList] = useState(studentList);
+  const [showNoResults, setShowNoResults] = useState(false);
 
-  // Ha number denote karto ki kiti students eka page varti display hotil
   const studentsPerPage = 12;
-
-  // Ithe total number of student is required here, to count the total number of pages.
-
-  const totalStudents = currList.length; //Will be decided aand given by API call
-
-  // Calculate the total number of pages required to show up all the students
+  const totalStudents = currList.length;
   const totalPages = Math.ceil(totalStudents / studentsPerPage);
 
   const startIndex = (currentPage - 1) * studentsPerPage;
@@ -40,11 +36,15 @@ const Students = () => {
       }
       return false;
 
-    })
+    });
+
+    if (arr.length === 0) {
+      setShowNoResults(true);
+    } else {
+      setShowNoResults(false);
+    }
 
     setCurrentList(arr);
-
-    console.log(arr);
   }
 
   const handlePageChange = (pageNumber) => {
@@ -64,6 +64,7 @@ const Students = () => {
             student={student}
           />
         ))}
+        {showNoResults && <span className="no-results"><FontAwesomeIcon icon={faExclamationCircle} /> &nbsp;No matching results found!</span>}
       </div>
 
       <div className="pagination-container">
