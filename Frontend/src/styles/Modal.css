@@ -311,9 +311,9 @@ input {
 .edit-icon {
     position: relative;
     display: inline-block;
-  }
-  
-  .tooltip {
+}
+
+.tooltip {
     position: absolute;
     top: 50%;
     left: calc(100% + 10px);
@@ -326,12 +326,12 @@ input {
     opacity: 0;
     transition: opacity 0.3s;
     pointer-events: none;
-  }
-  
-  .edit-icon:hover .tooltip {
+}
+
+.edit-icon:hover .tooltip {
     opacity: 1;
-  }
-  
-  .issueBook {
+}
+
+.issueBook {
     margin-bottom: 20px;
-  }
+}
