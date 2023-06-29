@@ -1,10 +1,9 @@
 const express = require("express");
 const { Router } = require('express');
-const StudentDetails = require("../database/schemas/StudentDetails")
+const StudentDetails = require("../database/schemas/StudentDetails");
 const cloudinary = require("../cloudinaryInfo/cloudinary");
 const uploader = require("../cloudinaryInfo/multer");
-const crypto = require("crypto");
-const axios = require("axios");
+
 
 const router = Router();
 
@@ -40,9 +39,28 @@ router.post("/studentData", uploader.single("file"), async (request, response) =
     response.sendStatus(200);
 })
 
+//Update [Not yet Tested and created]
+router.put("/studentData", uploader.single("file"), async (request, response) => {
+    // const LoginUser = await Login.findOne();
+    const obj = { ...request.body }
+    const prevStud = await StudentDetails.find({}).sort({ 'id': -1 }).limit(1);
+    let id = +prevStud[0].id + 1;
+    if (id < 100) {
+        id = "0" + id;
+    }
+    else {
+        id = "" + id;
+    }
+    obj.id = id;
+    obj.name = obj.fname + " " + obj.lname;
 
-
-//Update 
+    const upload = await cloudinary.v2.uploader.upload(request.file.path);
+    obj.profilePicture = upload.secure_url;
+    // console.log(obj);
+    const studentData = await StudentDetails.create(obj);
+    // response.send("Hi"); 
+    response.sendStatus(200);
+})
 
 //Delete 
 const getPublicIdFromUrl = (url) => {

@@ -44,7 +44,7 @@ const BookModal = ({ closeModal, selectedBookId, selectedBook }) => {
                         <p>{selectedBook.description}</p>
                         <p className="bookId">BookID:<strong>{selectedBook.book_id}</strong>&nbsp;&nbsp;<abbr title="Copy to Clipboard"><span className="copyId"><FontAwesomeIcon icon={faCopy} /></span></abbr></p>
                         <div className="stats currentRecords"> 
-                        <label>Qunatity:</label>
+                        <label>Quantity:</label>
                         <span>{selectedBook.quantity}</span>
                         <label>Copies Issued:</label>
                         <span>{selectedBook.copies_issued}</span>
