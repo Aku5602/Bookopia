@@ -1,7 +1,7 @@
-import {axios} from "axios";
-export const axiosRequest = axios.create({
-    baseURL: "https://link.com",
-})
+// import {axios} from "axios";
+// export const axiosRequest = axios.create({
+//     baseURL: "https://link.com",
+// })
 
 
 // import React from 'react';

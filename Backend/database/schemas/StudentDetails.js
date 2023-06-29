@@ -24,10 +24,12 @@ const StudentSchema = new mongoose.Schema({
     quantity: {
         type: mongoose.SchemaTypes.Number,
         required: true,
+        default:0
     },
     returned: {
         type: mongoose.SchemaTypes.Number,
         required: true,
+        default:3
     },
     books_issued: {
         type: mongoose.SchemaTypes.Array,

@@ -1,7 +1,7 @@
-import React, { useEffect, useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Lottie from "lottie-react";
-import Book from "../data/Book.json";
+import Book from "../data/Book.json"; 
 import { StudentContext } from "../pages/Students";
 import { BookContext } from "../pages/Books";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -31,7 +31,8 @@ const Header = () => {
   };
 
   const handleStudentAdd = () => {
-    console.log("Add Student clicked");
+    // console.log("Add Student clicked");
+    
     setShowModal(true);
   }
 

@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
-import { Link } from "react-router-dom";
+import React, { useState,useContext } from 'react';
+// import { Link } from "react-router-dom";
 import Modal from './Modal'
 import books from "../data/Books.jsx";
+import StudentData from '../api/StudentData';
+import { DeleteContext } from "../pages/Students";
 
 const StudentCards = ({ student }) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedStudentId, setSelectedStudentId] = useState(null);
   const [selectedStudent, setSelectedStudent] = useState(null);
+  const [update,setUpdate] = useState("");
+  const deleteOneStudent= useContext(DeleteContext);
 
   const handleUpdateClick = () => {
     setSelectedStudentId(student.id);
@@ -14,8 +18,11 @@ const StudentCards = ({ student }) => {
     setShowModal(true);
   };
 
-  const handleDelete = (studentId) => {
+  const handleDelete = (oldStudentID) => {
     // Write the Delete logic here
+    // console.log(oldStudent);
+     StudentData.deleteStudentData(oldStudentID).then((res)=>setUpdate("delete"));
+     deleteOneStudent("delete");
   };
 
   const closeModal = () => {
