@@ -10,7 +10,7 @@ const router = Router();
 //Read
 router.get("/studentData", async (request, response) => {
     // const LoginUser = await Login.findOne();
-    const studentData = await StudentDetails.find({});
+    const studentData = await StudentDetails.find({}).sort({'id':+1});
     response.send(JSON.stringify(studentData));
 })
 
@@ -31,7 +31,7 @@ router.post("/studentData", uploader.single("file"), async (request, response) =
     obj.id = id;
     obj.name = obj.fname + " " + obj.lname;
 
-    const upload = await cloudinary.v2.uploader.upload(request.file.path);
+    const upload = await cloudinary.v2.uploader.upload(request.file.path, { folder: 'Students' });
     obj.profilePicture = upload.secure_url;
     // console.log(obj);
     const studentData = await StudentDetails.create(obj);
@@ -69,9 +69,9 @@ const getPublicIdFromUrl = (url) => {
     return matchStatus ? matchStatus[1] : null;
 };
 
-async function deleteImage (publicId) {
+async function deleteImage(publicId) {
     return await cloudinary.uploader.destroy(
-        publicId,
+        'Students', publicId,
         { invalidate: true, resource_type: "image" },
         function (err, res) {
             if (err) {

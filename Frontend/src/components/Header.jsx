@@ -7,6 +7,7 @@ import { BookContext } from "../pages/Books";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import AddStudentModal from '../components/AddStudentModal';
+import AddBookModal from '../components/AddBookModal';
 
 const Header = () => {
   const [showModal, setShowModal] = useState(false);
@@ -42,6 +43,7 @@ const Header = () => {
 
   const handleBookAdd = () => {
     console.log("Add Book clicked");
+    setShowModal(true);
   }
 
   const renderAddButton = () => {
@@ -62,12 +64,16 @@ const Header = () => {
     } else if (location.pathname === '/Books') {
       return (
         <>
-          <abbr title="Add Book">
-            <button className="btn_add btn_add_books" onClick={handleBookAdd}>
-              <FontAwesomeIcon icon={faPlus} />
-            </button>
-          </abbr>
-        </>
+        <abbr title="Add Book">
+          <button className="btn_add btn_add_books" onClick={handleBookAdd}>
+            <FontAwesomeIcon icon={faPlus} />
+          </button>
+        </abbr>
+
+        {showModal && (
+          <AddBookModal closeModal={closeModal} />
+        )}
+      </>
       );
     }
   };
