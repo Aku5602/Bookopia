@@ -15,7 +15,7 @@ const Modal = ({ closeModal, selectedStudentId, selectedStudent, books }) => {
         } else {
             setSelectedBookId(bookId);
         }
-    };
+    }; 
 
     const handleEditClick = (index) => {
         setEditedFieldIndex(index);
@@ -25,6 +25,7 @@ const Modal = ({ closeModal, selectedStudentId, selectedStudent, books }) => {
     const handleTickClick = () => {
         setIsEditEnabled(false);
         // Implement here the functionality to save the updated student values in altas
+        
     };
 
     const handleAddBookClick = () => {

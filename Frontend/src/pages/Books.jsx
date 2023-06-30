@@ -43,7 +43,7 @@ const Books = () => {
     } else {
       setShowNoResults(false);
     }
-
+    setCurrentPage(1);
     setCurrentList(arr);
   }
 

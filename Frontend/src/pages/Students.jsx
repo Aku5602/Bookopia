@@ -66,7 +66,7 @@ const Students = () => {
     } else {
       setShowResults(false);
     }
-
+    setCurrentPage(1);
     setCurrentList(() => arr);
   }
 
