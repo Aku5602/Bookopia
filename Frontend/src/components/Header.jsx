@@ -32,8 +32,6 @@ const Header = () => {
   };
 
   const handleStudentAdd = () => {
-    // console.log("Add Student clicked");
-    
     setShowModal(true);
   }
 
@@ -42,7 +40,6 @@ const Header = () => {
   };
 
   const handleBookAdd = () => {
-    console.log("Add Book clicked");
     setShowModal(true);
   }
 

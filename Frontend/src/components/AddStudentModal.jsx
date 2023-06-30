@@ -2,7 +2,7 @@ import React, { useReducer, useState } from "react";
 import "../styles/AddStudentModal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpload, faTimes } from "@fortawesome/free-solid-svg-icons";
-import StudentData from "../api/StudentData";
+import StudentData from "../api/StudentDataApi";
 
 
 const AddStudentModal = ({ closeModal }) => {

@@ -22,7 +22,7 @@ router.post("/bookData", uploader.single("file"), async (request, response) => {
     obj.no = prevBook[0].no + 1;
     obj.quantity = +obj.quantity;
 
-    const upload = await cloudinary.v2.uploader.upload(request.file.path);
+    const upload = await cloudinary.v2.uploader.upload(request.file.path,{ folder: 'Books' });
     obj.image = upload.secure_url;
     const bookData = await BookDetails.create(obj);
     response.sendStatus(200);
@@ -41,39 +41,24 @@ router.put("/bookData", async (request, response) => {
 
 //Delete 
 const getPublicIdFromUrl = (url) => {
-    const regex = /\/v\d+\/([^/]+)\.\w{3,4}$/;
+    const regex = /upload\/(?:v\d+\/)?([^\.]+)/;
     const matchStatus = url.match(regex);
     return matchStatus ? matchStatus[1] : null;
 };
-
-async function deleteImage (publicId) {
-    return await cloudinary.uploader.destroy(
-        publicId,
-        { invalidate: true, resource_type: "image" },
-        function (err, res) {
-            if (err) {
-                console.log(err);
-                return res.status(400).json({
-                    ok: false,
-                    menssage: "Error deleting file",
-                    errors: err
-                });
-            }
-            console.log(res);
-        }
-    );
-}
 
 router.delete("/bookData/:no", async (request, response) => {
     const no = +request.params.no;
     // const LoginUser = await Login.findOne();
     const bookData = await BookDetails.find({ 'no': no });
-
-    //Delete image from Cloudinary
+   
+    //Delete image from Cloudinary 
     const publicId = getPublicIdFromUrl(bookData[0].image);
-    //  console.log("Public ID: ",publicId);
-    deleteImage(publicId);
-    // Delete book details
+
+    cloudinary.v2.api
+        .delete_resources([publicId],
+            { type: 'upload', resource_type: 'image' })
+        .then(console.log);
+
     await BookDetails.deleteOne({ 'no': no }).then((res) => {
         console.log(res);
     });

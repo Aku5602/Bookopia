@@ -21,7 +21,6 @@ function postStudentData(newStudent) {
       import.meta.env.VITE_BASE_URL + "/studentData",newStudent,{
         headers: {
           'content-type': 'multipart/form-data',
-          method: "POST"
         }
       });
     const data = await response.data;
@@ -32,14 +31,10 @@ function postStudentData(newStudent) {
 function deleteStudentData(oldStudentID) {
   console.log(oldStudentID);
   return new Promise(async (resolve) => {
-    const response = await axios.delete(
-      import.meta.env.VITE_BASE_URL + "/studentData/"+(+oldStudentID),{
-          method:'DELETE'
-      }
-  );
+    const response = await axios.delete(import.meta.env.VITE_BASE_URL + "/studentData/"+(+oldStudentID));
     const data = await response.data;
     resolve({ data });
   });
 }
 
-export default { getStudentData, postStudentData,deleteStudentData };
+export default { getStudentData, postStudentData, deleteStudentData };

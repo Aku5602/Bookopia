@@ -6,7 +6,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
-import StudentData from "../api/StudentData";
+import StudentData from "../api/StudentDataApi";
 
 
 export const StudentContext = createContext();
@@ -15,11 +15,11 @@ export const DeleteContext = createContext();
 const Students = () => {
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [studentList, setStudentList] = useState(students);
-  const [currList, setCurrentList] = useState(studentList);
+  const [studentList, setStudentList] = useState([]);
+  const [currList, setCurrentList] = useState([]);
   // console.log("called");
   const [showNoResults, setShowNoResults] = useState(false);
-  const [deleteStatus, setDeleteStatus] = useState([]);
+  const [deleteUpdate, setDeleteUpdate] = useState(0);
 
   useEffect(() => {
     setLoading(true);
@@ -28,7 +28,7 @@ const Students = () => {
       setLoading(false);
       setCurrentList([...res.data]);
     });
-  }, [deleteStatus]);
+  }, [deleteUpdate]);
 
   const studentsPerPage = 12;
   const totalStudents = currList.length;
@@ -39,8 +39,12 @@ const Students = () => {
 
   function createNewStudent() {}
 
-  function deleteOneStudent(value) {
-    setDeleteStatus([...value]);
+  function deleteOneUpdate() {
+    if (deleteUpdate) {
+      setDeleteUpdate(0);
+    } else {
+      setDeleteUpdate(1);
+    }
   }
 
   function setShowResults(value) {
@@ -80,9 +84,10 @@ const Students = () => {
         <Header />
       </StudentContext.Provider>
 
+      {loading && <h1>Loading...</h1>}
       <div className="student-carousel">
         {currList.slice(startIndex, endIndex).map((student) => (
-          <DeleteContext.Provider key={student.id} value={deleteOneStudent}>
+          <DeleteContext.Provider key={student.id} value={deleteOneUpdate}>
             <StudentCards key={student.id} student={student} />
           </DeleteContext.Provider>
         ))}
