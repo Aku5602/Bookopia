@@ -73,7 +73,9 @@ const Header = () => {
         {showModal && (
           <AddBookModal closeModal={closeModal} />
         )}
-      </>
+
+        </>
+
       );
     }
   };
@@ -102,6 +104,6 @@ const Header = () => {
       </header>
     </>
   );
-};
+}
 
 export default Header;

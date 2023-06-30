@@ -56,4 +56,5 @@ const AddStudentModal = ({ closeModal }) => {
     );
 }
 
+
 export default AddStudentModal;
