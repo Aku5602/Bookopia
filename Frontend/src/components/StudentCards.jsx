@@ -9,7 +9,7 @@ const StudentCards = ({ student }) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedStudentId, setSelectedStudentId] = useState(null);
   const [selectedStudent, setSelectedStudent] = useState(null);
-  const deleteOneStudent= useContext(DeleteContext);
+  const deleteUpdate= useContext(DeleteContext);
 
   const handleUpdateClick = () => {
     setSelectedStudentId(student.id);
@@ -18,10 +18,7 @@ const StudentCards = ({ student }) => {
   };
 
   const handleDelete = (oldStudentID) => {
-    // Write the Delete logic here
-    // console.log(oldStudent);
-     StudentData.deleteStudentData(oldStudentID);
-     deleteOneStudent("delete");
+    StudentData.deleteStudentData(oldStudentID).then((res)=>{deleteUpdate()});  
   };
 
   const closeModal = () => {

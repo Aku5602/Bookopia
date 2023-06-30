@@ -1,6 +1,5 @@
 import React, { useState, createContext, useEffect } from "react";
 import "../styles/Students.css";
-import students from "../data/Student";
 import StudentCards from "../components/StudentCards";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -17,17 +16,24 @@ const Students = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [studentList, setStudentList] = useState([]);
   const [currList, setCurrentList] = useState([]);
-  // console.log("called");
   const [showNoResults, setShowNoResults] = useState(false);
   const [deleteUpdate, setDeleteUpdate] = useState(0);
 
   useEffect(() => {
+    let isCurrent = true;
     setLoading(true);
     StudentData.getStudentData().then((res) => {
-      setStudentList(res.data);
-      setLoading(false);
-      setCurrentList([...res.data]);
+      if(isCurrent) {
+        setCurrentList([...res.data]);
+        setStudentList([...res.data]);
+        setLoading(false);
+      }
+
+
     });
+    return () =>{
+      isCurrent = false;
+    }
   }, [deleteUpdate]);
 
   const studentsPerPage = 12;

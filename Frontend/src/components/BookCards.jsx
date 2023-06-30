@@ -9,7 +9,7 @@ const BookCards = ({ book }) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedBookId, setSelectedBookId] = useState(null);
   const [selectedBook, setSelectedBook] = useState(null);
-  const deleteOneBook= useContext(DeleteContext);
+  const deleteUpdate= useContext(DeleteContext);
 
   const handleUpdateClick = () => {
     setSelectedBookId(book.book_id);
@@ -19,8 +19,8 @@ const BookCards = ({ book }) => {
 
   const handleDelete = (oldBookID) => {
     // Write the Delete logic here 
-    BookDataApi.deleteBookData(oldBookID);
-    deleteOneBook();
+    BookDataApi.deleteBookData(oldBookID).then((res)=>{deleteUpdate()});  
+    
   };
 
   const closeModal = () => {

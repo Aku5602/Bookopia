@@ -87,13 +87,9 @@ router.delete("/studentData/:id", async (request, response) => {
 
     cloudinary.v2.api
         .delete_resources([publicId],
-            { type: 'upload', resource_type: 'image' })
-        .then(console.log);
+            { type: 'upload', resource_type: 'image' });
 
-    await StudentDetails.deleteOne({ 'id': id }).then((res) => {
-        console.log(res);
-    });
-
+    await StudentDetails.deleteOne({ 'id': id });
 
 
     response.sendStatus(200);

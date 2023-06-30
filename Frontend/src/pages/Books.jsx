@@ -1,6 +1,5 @@
 import React, { useEffect, useState, createContext } from "react";
 import "../styles/Books.css";
-import books from "../data/BooksInventory";
 import BookCards from "../components/BookCards";
 import Header from "../components/Header";
 import Footer from "../components/Footer";

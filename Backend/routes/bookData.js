@@ -57,10 +57,9 @@ router.delete("/bookData/:no", async (request, response) => {
     cloudinary.v2.api
         .delete_resources([publicId],
             { type: 'upload', resource_type: 'image' })
-        .then(console.log);
+
 
     await BookDetails.deleteOne({ 'no': no }).then((res) => {
-        console.log(res);
     });
 
 
