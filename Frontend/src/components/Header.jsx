@@ -1,7 +1,7 @@
-import React, { useEffect, useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Lottie from "lottie-react";
-import Book from "../data/Book.json";
+import Book from "../data/Book.json"; 
 import { StudentContext } from "../pages/Students";
 import { BookContext } from "../pages/Books";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -32,7 +32,6 @@ const Header = () => {
   };
 
   const handleStudentAdd = () => {
-    console.log("Add Student clicked");
     setShowModal(true);
   }
 
@@ -41,7 +40,6 @@ const Header = () => {
   };
 
   const handleBookAdd = () => {
-    console.log("Add Book clicked");
     setShowModal(true);
   }
 
@@ -63,16 +61,18 @@ const Header = () => {
     } else if (location.pathname === '/Books') {
       return (
         <>
-          <abbr title="Add Book">
-            <button className="btn_add btn_add_books" onClick={handleBookAdd}>
-              <FontAwesomeIcon icon={faPlus} />
-            </button>
-          </abbr>
+        <abbr title="Add Book">
+          <button className="btn_add btn_add_books" onClick={handleBookAdd}>
+            <FontAwesomeIcon icon={faPlus} />
+          </button>
+        </abbr>
 
-          {showModal && (
-            <AddBookModal closeModal={closeModal} />
-          )}
+        {showModal && (
+          <AddBookModal closeModal={closeModal} />
+        )}
+
         </>
+
       );
     }
   };
@@ -101,6 +101,6 @@ const Header = () => {
       </header>
     </>
   );
-};
+}
 
 export default Header;

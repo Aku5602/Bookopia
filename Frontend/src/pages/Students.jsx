@@ -1,19 +1,40 @@
-import React, { useState, createContext } from "react";
+import React, { useState, createContext, useEffect } from "react";
 import "../styles/Students.css";
-import students from "../data/Student";
 import StudentCards from "../components/StudentCards";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
+import StudentData from "../api/StudentDataApi";
+
 
 export const StudentContext = createContext();
+export const DeleteContext = createContext();
 
 const Students = () => {
+  const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [studentList, setStudentList] = useState(students);
-  const [currList, setCurrentList] = useState(studentList);
+  const [studentList, setStudentList] = useState([]);
+  const [currList, setCurrentList] = useState([]);
   const [showNoResults, setShowNoResults] = useState(false);
+  const [deleteUpdate, setDeleteUpdate] = useState(0);
+
+  useEffect(() => {
+    let isCurrent = true;
+    setLoading(true);
+    StudentData.getStudentData().then((res) => {
+      if(isCurrent) {
+        setCurrentList([...res.data]);
+        setStudentList([...res.data]);
+        setLoading(false);
+      }
+
+
+    });
+    return () =>{
+      isCurrent = false;
+    }
+  }, [deleteUpdate]);
 
   const studentsPerPage = 12;
   const totalStudents = currList.length;
@@ -21,6 +42,20 @@ const Students = () => {
 
   const startIndex = (currentPage - 1) * studentsPerPage;
   const endIndex = startIndex + studentsPerPage;
+
+  function createNewStudent() {}
+
+  function deleteOneUpdate() {
+    if (deleteUpdate) {
+      setDeleteUpdate(0);
+    } else {
+      setDeleteUpdate(1);
+    }
+  }
+
+  function setShowResults(value) {
+    setShowNoResults(value);
+  }
 
   function studentSearch(text) {
     text = text.trim().toLowerCase();
@@ -31,20 +66,18 @@ const Students = () => {
         item.mobile.toLowerCase().includes(text) ||
         item.email.toLowerCase().includes(text)
       ) {
-
         return true;
       }
       return false;
-
     });
 
     if (arr.length === 0) {
-      setShowNoResults(true);
+      setShowResults(true);
     } else {
-      setShowNoResults(false);
+      setShowResults(false);
     }
-
-    setCurrentList(arr);
+    setCurrentPage(1);
+    setCurrentList(() => arr);
   }
 
   const handlePageChange = (pageNumber) => {
@@ -57,26 +90,33 @@ const Students = () => {
         <Header />
       </StudentContext.Provider>
 
+      {loading && <h1>Loading...</h1>}
       <div className="student-carousel">
         {currList.slice(startIndex, endIndex).map((student) => (
-          <StudentCards
-            key={student.id}
-            student={student}
-          />
+          <DeleteContext.Provider key={student.id} value={deleteOneUpdate}>
+            <StudentCards key={student.id} student={student} />
+          </DeleteContext.Provider>
         ))}
-        {showNoResults && <span className="no-results"><FontAwesomeIcon icon={faExclamationCircle} /> &nbsp;No matching results found!</span>}
+        {showNoResults && (
+          <span className="no-results">
+            <FontAwesomeIcon icon={faExclamationCircle} /> &nbsp;No matching
+            results found!
+          </span>
+        )}
       </div>
 
       <div className="pagination-container">
         <ul className="pagination">
           {[...Array(totalPages)].map((item, index) => {
-            return <li
-              key={index + 1}
-              className={currentPage === index + 1 ? "active" : ""}
-              onClick={() => handlePageChange(index + 1)}
-            >
-              {index + 1}
-            </li>;
+            return (
+              <li
+                key={index + 1}
+                className={currentPage === index + 1 ? "active" : ""}
+                onClick={() => handlePageChange(index + 1)}
+              >
+                {index + 1}
+              </li>
+            );
           })}
         </ul>
       </div>

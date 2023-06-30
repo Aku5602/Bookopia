@@ -61,12 +61,15 @@ const BookModal = ({ closeModal, selectedBookId, selectedBook, studentsss }) => 
 
                     <div className="details-container">
                         <p>{selectedBook.description}</p>
+
                         <p className="bookId">BookID:<span className="book_id_copy"><strong>{selectedBook.book_id}</strong></span>&nbsp;&nbsp;<abbr title="Copy to Clipboard"><span className="copyId" onClick={handleCopyClick}><FontAwesomeIcon icon={faCopy} /></span></abbr></p>
                         <div className="stats currentRecords">
                             <label>Qunatity:</label>
                             <span>{selectedBook.quantity}</span>
                             <label>Copies Issued:</label>
                             <span>{selectedBook.copies_issued}</span>
+
+
                         </div>
 
                         <button onClick={handleStudentListClick}>Student List &nbsp;&rarr;</button>
