@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../styles/AddBookModal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUpload, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 const AddStudentModal = ({ closeModal }) => {
 
@@ -12,8 +12,6 @@ const AddStudentModal = ({ closeModal }) => {
                 <h2>Add Book</h2>
                 <div className="line"></div>
                 <form autoComplete="off">
-     
-
 
                     <div className="form-group">
                         <label className="fieldNames" htmlFor="email">Book Title</label>

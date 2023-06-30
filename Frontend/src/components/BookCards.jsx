@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import BookModal from './BookModal';
-
+import studentsss from "../data/Studentsss.jsx";
 
 const BookCards = ({ book }) => {
   const [showModal, setShowModal] = useState(false);
@@ -38,7 +38,7 @@ const BookCards = ({ book }) => {
       </div>
 
       {showModal && (
-        <BookModal closeModal={closeModal} selectedBookId={selectedBookId} selectedBook={selectedBook}>
+        <BookModal closeModal={closeModal} selectedBookId={selectedBookId} selectedBook={selectedBook} studentsss={studentsss}>
 
         </BookModal>
       )}

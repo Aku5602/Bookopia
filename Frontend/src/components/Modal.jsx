@@ -29,11 +29,11 @@ const Modal = ({ closeModal, selectedStudentId, selectedStudent, books }) => {
 
     const handleAddBookClick = () => {
         setIsAddBookClicked(true);
-      };
+    };
 
-      const closeAddBook = () => {
+    const closeAddBook = () => {
         setIsAddBookClicked(false);
-      }
+    }
 
     return (
         <>
@@ -152,67 +152,73 @@ const Modal = ({ closeModal, selectedStudentId, selectedStudent, books }) => {
                 </div>
 
                 <div className="col-1-of-2 bookDetails">
-                    {isAddBookClicked && ( 
+                    {isAddBookClicked ? (
                         <div className="issueBook">
+                            <h2>Issue a new Book</h2>
                             <input type="text" placeholder="Enter BookID" />
+                            <div className="issueBook__btns">
                             <button>Issue Book</button>
                             <button onClick={closeAddBook}>Cancel</button>
-                        </div>
-                    )}
-                    <h3>Books:</h3>
-                    <div className="Modal__book-carousel">
-                        {books.map((book) => (
-                            <div key={book.id} className="book-item">
-                                <button
-                                    className={`menu-icon ${selectedBookId === book.id ? "active" : ""
-                                        }`}
-                                    onClick={() => handleMenuToggle(book.id)}
-                                >
-                                    <FontAwesomeIcon icon={faBars} />
-                                    {selectedBookId === book.id && (
-                                        <span className="arrow"></span>
-                                    )}
-                                </button>
-                                {selectedBookId === book.id && (
-                                    <ul className={`menu-options`}>
-                                        <li>
-                                            <a className="opt1" href="">
-                                                Mark as Returned
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a className="opt2" href="">
-                                                Renew
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a className="opt3" href="">
-                                                Remove Book
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a className="opt4" href="">
-                                                Lost/Damaged
-                                            </a>
-                                        </li>
-                                    </ul>
-                                )}
-
-                                <img src={book.image} alt={book.title} />
-                                <h4>{book.title}</h4>
-                                <p>Author: {book.author}</p>
-                                <p>ID: {book.book_id}</p>
-                                <br />
-                                <p>Date of Issue: 24 Jun 2023</p>
-                                <span
-                                    className={`bookStatus ${book.status === "Issued" ? "issued" : "returned"
-                                        }`}
-                                >
-                                    {book.status}
-                                </span>
                             </div>
-                        ))}
-                    </div>
+                        </div>
+                    ) : (
+                        <>
+                            <h3>Books:</h3>
+                            <div className="Modal__book-carousel">
+                                {books.map((book) => (
+                                    <div key={book.id} className="book-item">
+                                        <button
+                                            className={`menu-icon ${selectedBookId === book.id ? "active" : ""
+                                                }`}
+                                            onClick={() => handleMenuToggle(book.id)}
+                                        >
+                                            <FontAwesomeIcon icon={faBars} />
+                                            {selectedBookId === book.id && (
+                                                <span className="arrow"></span>
+                                            )}
+                                        </button>
+                                        {selectedBookId === book.id && (
+                                            <ul className={`menu-options`}>
+                                                <li>
+                                                    <a className="opt1" href="">
+                                                        Mark as Returned
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a className="opt2" href="">
+                                                        Renew
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a className="opt3" href="">
+                                                        Remove Book
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a className="opt4" href="">
+                                                        Lost/Damaged
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        )}
+
+                                        <img src={book.image} alt={book.title} />
+                                        <h4>{book.title}</h4>
+                                        <p>Author: {book.author}</p>
+                                        <p>ID: {book.book_id}</p>
+                                        <br />
+                                        <p>Date of Issue: 24 Jun 2023</p>
+                                        <span
+                                            className={`bookStatus ${book.status === "Issued" ? "issued" : "returned"
+                                                }`}
+                                        >
+                                            {book.status}
+                                        </span>
+                                    </div>
+                                ))}
+                            </div>
+                        </>
+                    )}
                 </div>
             </div>
         </>

@@ -19,7 +19,7 @@
 
 .modal-container {
     position: fixed;
-    max-width: 1000px;
+    min-width: 1100px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -74,14 +74,20 @@
     padding: 0 10px;
     padding-right: 20px;
     margin-right: 10px;
-    min-width: 500px !important;
 }
 
 .BookModal__editDetails {
     flex-grow: 1;
     padding-left: 30px;
-    /* min-width: 500px; */
     padding-right: 20px;
+    min-width: 400px;
+}
+
+.bookModal__studentCards {
+    display: flex;
+    max-height: 400px;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .BookModal__editDetails h3 {
@@ -153,7 +159,7 @@
     padding: 1rem;
     margin-right: 10px;
     scrollbar-width: thin;
-    scrollbar-color: #AAAAAA #333333;  
+    scrollbar-color: #AAAAAA #333333;
 }
 
 .book-profile h4 {
@@ -161,15 +167,15 @@
 }
 
 .textareaDesc::-webkit-scrollbar {
-    width: 4px;  
+    width: 4px;
 }
 
 .textareaDesc::-webkit-scrollbar-track {
-    background: #333333;  
+    background: #333333;
 }
 
 .textareaDesc::-webkit-scrollbar-thumb {
-    background-color: #AAAAAA;  
+    background-color: #AAAAAA;
     border-radius: 4px;
 }
 
@@ -177,7 +183,89 @@
     background-color: #CCCCCC;
 }
 
+.textareaDescE::-webkit-scrollbar {
+    width: 4px;
+}
+
+.textareaDescE::-webkit-scrollbar-track {
+    background: #333333;
+}
+
+.textareaDescE::-webkit-scrollbar-thumb {
+    background-color: #AAAAAA;
+    border-radius: 4px;
+}
+
+.textareaDescE::-webkit-scrollbar-thumb:hover {
+    background-color: red;
+}
+
 .currentRecords {
     padding: 0 !important;
     margin: 10px 0 !important;
+}
+
+.details-container button {
+    margin-top: 10px;
+}
+
+.BookModal__StudentList {
+    margin-top: 2rem;
+}
+
+.editBookInfo h3 {
+    font-size: 25px;
+}
+
+.BookModal__StudentList {
+    max-height: 330px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.delete-icon {
+    background: red;
+}
+
+.delete-icon:hover {
+    background: coral;
+}
+
+.bookModal__studentImg {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+
+.bookModal__studentCards {
+    width: 90%;
+    display: flex;
+    align-items: center;
+    border: 1px solid white;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+    padding-right: 30px;
+}
+
+.bookModal__studentInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.bookModal__studentImg {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.bookModal__studentCards h4,
+.bookModal__studentCards p {
+    margin: 0;
+}
+
+.delete-icon {
+    margin-left: auto;
 }
