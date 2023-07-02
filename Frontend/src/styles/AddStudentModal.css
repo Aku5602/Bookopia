@@ -1,0 +1,162 @@
+/* AddStudentModal.css */
+.modal-wrapper {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    background-color: rgba(189, 189, 189, .4);
+}
+
+.form-container {
+    position: fixed;
+    top: 5%;
+    right: 50%;
+    transform: translateX(50%);
+    background: #212121;
+    padding: 3rem;
+    color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    font-size: 15px;
+}
+
+h2 {
+    font-size: 2.4rem;
+    font-family: "Work Sans", sans-serif;
+    margin-bottom: 10px;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+.name-fields__form-input2 {
+    margin-right: 0;
+}
+
+.name-fields {
+    display: flex;
+    justify-content: space-between;
+}
+
+.name-fields input {
+    width: 180px;
+}
+
+.fieldNames {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group__form-input {
+    border: none;
+    outline: none;
+    width: 100%;
+}
+
+.custom-upload {
+    display: flex;
+    align-items: center;
+}
+
+.file-input {
+    display: none;
+}
+
+.file-label {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #666666;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+.file-label:hover {
+    background-color: #444444;
+    border: 1px solid #fff;
+}
+
+
+.btn {
+    display: block;
+    width: 100%;
+    background-color: #1E88E5;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.close-button {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    border: none;
+    outline: none;
+    color: #fff;
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+    font-size: 24px;
+    background-color: transparent;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.file-name {
+    background-color: #f0f0f0;
+    padding: 3px;
+    border-radius: 4px;
+    color: #666666;
+    vertical-align: top;
+    font-size: 12px;
+    margin-left: 10px;
+}
+
+.fileDP {
+    margin: 20px 0;
+}
+
+.line {
+    height: 1px;
+    background-color: #fff;
+    margin-bottom: 20px;
+}
+
+.submitBtn:hover {
+    background: #64B5F6;
+}
+
+.modal_btn_close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    border: none;
+    outline: none;
+    color: #000;
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+    background: #fff;
+    transition: all .3s ease;
+    font-size: 20px;
+    margin: 0;
+    padding: 0;
+    font-size: 1.4rem;
+    
+}
+
+.modal_btn_close:hover {
+    transform: scale(1.2);
+    background: red;
+    color: #fff;
+}
