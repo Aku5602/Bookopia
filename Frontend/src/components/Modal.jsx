@@ -6,7 +6,6 @@ import {
   faTimes,
   faBars,
   faCheck,
-  faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import StudentDataApi from "../api/StudentDataApi";
 import BookDataApi from "../api/BookDataApi";
@@ -21,7 +20,6 @@ const Modal = ({ closeModal, selectedStudentId, selectedStudent }) => {
     isEditEnabled: false,
     editedFieldIndex: null,
     isAddBookClicked: false,
-    editDetails: selectedStudent,
     bookID: "",
     bookListAvailable: [],
     update: false,
@@ -30,7 +28,6 @@ const Modal = ({ closeModal, selectedStudentId, selectedStudent }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   function reducer(state, action) {
-    console.log(action.payload);
     switch (action.type) {
       case "setSelectedBookId":
         return { ...state, selectedBookId: action.payload };
@@ -106,7 +103,7 @@ const Modal = ({ closeModal, selectedStudentId, selectedStudent }) => {
       !state.bookID.trim().length ||
       !objBook.length ||
       state.bookID.trim().toLowerCase() !==
-        objBook[0].book_id.trim().toLowerCase()
+      objBook[0].book_id.trim().toLowerCase()
     ) {
       return 0;
     }
@@ -133,15 +130,14 @@ const Modal = ({ closeModal, selectedStudentId, selectedStudent }) => {
     });
   }
 
-  function handleBookReturn() {             
+  function handleBookReturn() {
     const obj = {};
     obj._id = selectedStudentId;
     obj.book_id = state.selectedBookId;
-    console.log(obj);
     StudentDataApi.deleteStudentDataBookInfo(obj).then((res) => {
       deleteUpdate();
       dispatch({ type: "setUpdate", payload: !state.update });
-      closeModal();                             
+      closeModal();
     });
   }
 
@@ -365,9 +361,8 @@ const Modal = ({ closeModal, selectedStudentId, selectedStudent }) => {
                 {selectedStudent.books_issued.map((book) => (
                   <div key={book.book_id} className="book-item">
                     <button
-                      className={`menu-icon ${
-                        state.selectedBookId === book.book_id ? "active" : ""
-                      }`}
+                      className={`menu-icon ${state.selectedBookId === book.book_id ? "active" : ""
+                        }`}
                       onClick={() => handleMenuToggle(book.book_id)}
                     >
                       <FontAwesomeIcon icon={faBars} />
@@ -377,9 +372,8 @@ const Modal = ({ closeModal, selectedStudentId, selectedStudent }) => {
                     </button>
                     {state.selectedBookId === book.book_id && (
                       <ul
-                        className={`menu-options ${
-                          state.selectedBookId === book.book_id ? "open" : ""
-                        }`}
+                        className={`menu-options ${state.selectedBookId === book.book_id ? "open" : ""
+                          }`}
                       >
                         <li>
                           <a
@@ -420,9 +414,7 @@ const Modal = ({ closeModal, selectedStudentId, selectedStudent }) => {
                         new Date(book.dateOfIssue).getFullYear()}
                     </p>
                     <span
-                      className={`bookStatus ${
-                        book.status === "Issued" ? "issued" : "returned"
-                      }`}
+                      className={`bookStatus ${book.status === "Issued" ? "issued" : "returned"}`}
                     >
                       {book.status}
                     </span>
