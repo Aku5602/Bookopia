@@ -340,3 +340,7 @@
   right: 90px;
   top: 40px;
 }
+
+.bookModal_round {
+  border-radius: 50% !important;
+}

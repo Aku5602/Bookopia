@@ -241,7 +241,7 @@ const BookModal = ({
                     {studentListAvailable.map((stud) => (
                       <div onClick={() => changeInputValue(stud)} className="bookModal__studentCards modal_BookCards">
                         <img
-                          className="bookModal__studentImg modal__bookImg"
+                          className="bookModal__studentImg bookModal_round modal__bookImg"
                           src={stud.profilePicture}
                           alt=""
                         />
@@ -411,7 +411,6 @@ const BookModal = ({
                   <label className="labels">Description:</label>
                   <br />
                   <textarea
-                    // type="text"
                     defaultValue={selectedBook.description}
                     disabled={!isEditEnabled || editedFieldIndex !== 4}
                     className={
