@@ -104,7 +104,7 @@ const BookModal = ({
       deleteUpdate();
       setStudentID('');
       setUpdate((oldvalue)=>!update);
-      selectedBook.books_issued.push(obj);
+      selectedBook.students_info.push(obj);
       setIsAddingStudent(false);
     });
   }
