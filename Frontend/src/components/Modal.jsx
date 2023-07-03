@@ -1,4 +1,4 @@
-import React, { useContext,useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useReducer } from "react";
 import "../styles/Modal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -12,42 +12,66 @@ import StudentDataApi from "../api/StudentDataApi";
 import BookDataApi from "../api/BookDataApi";
 import { DeleteContext } from "../pages/Students";
 
-const Modal = ({
-  closeModal,
-  selectedStudentId,
-  selectedStudent
-}) => {
-  const [selectedBookId, setSelectedBookId] = useState(null);
-  const [isEditEnabled, setIsEditEnabled] = useState(false);
-  const [editedFieldIndex, setEditedFieldIndex] = useState(null);
-  const [isAddBookClicked, setIsAddBookClicked] = useState(false);
+const Modal = ({ closeModal, selectedStudentId, selectedStudent }) => {
   const [editDetails, setEditDetails] = useState(selectedStudent);
-  const [bookID,setBookID] = useState('');
-  const [bookListAvailable, setBookListAvailable] = useState([]);
-  const [update,setUpdate] = useState(false);
-  const deleteUpdate= useContext(DeleteContext);
+  const deleteUpdate = useContext(DeleteContext);
 
-  useEffect(()=>{
+  const initialState = {
+    selectedBookId: null,
+    isEditEnabled: false,
+    editedFieldIndex: null,
+    isAddBookClicked: false,
+    editDetails: selectedStudent,
+    bookID: "",
+    bookListAvailable: [],
+    update: false,
+  };
+
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  function reducer(state, action) {
+    console.log(action.payload);
+    switch (action.type) {
+      case "setSelectedBookId":
+        return { ...state, selectedBookId: action.payload };
+      case "setIsEditEnabled":
+        return { ...state, isEditEnabled: action.payload };
+      case "setEditedFieldIndex":
+        return { ...state, editedFieldIndex: action.payload };
+      case "setIsAddBookClicked":
+        return { ...state, isAddBookClicked: action.payload };
+      case "setBookID":
+        return { ...state, bookID: action.payload };
+      case "setBookListAvailable":
+        return { ...state, bookListAvailable: action.payload };
+      case "setUpdate":
+        return { ...state, update: action.payload };
+      default:
+        throw new Error();
+    }
+  }
+
+  useEffect(() => {
     BookDataApi.getBookDataAvailable(selectedStudent.id).then((res) => {
-      setBookListAvailable([...res.data]);
+      dispatch({ type: "setBookListAvailable", payload: [...res.data] });
     });
-  },[update]) 
+  }, [state.update]);
 
   const handleMenuToggle = (bookId) => {
-    if (selectedBookId === bookId) {
-      setSelectedBookId(null);
+    if (state.selectedBookId === bookId) {
+      dispatch({ type: "setSelectedBookId", payload: null });
     } else {
-      setSelectedBookId(bookId);
+      dispatch({ type: "setSelectedBookId", payload: bookId });
     }
   };
 
   const handleEditClick = (index) => {
-    setEditedFieldIndex(index);
-    setIsEditEnabled(true);
+    dispatch({ type: "setEditedFieldIndex", payload: index });
+    dispatch({ type: "setIsEditEnabled", payload: true });
   };
 
   const handleTickClick = (key) => {
-    setIsEditEnabled(false);
+    dispatch({ type: "setIsEditEnabled", payload: false });
 
     const obj = { _id: editDetails._id };
     if (
@@ -63,31 +87,36 @@ const Modal = ({
   };
 
   const handleAddBookClick = () => {
-    setIsAddBookClicked(true);
+    dispatch({ type: "setIsAddBookClicked", payload: true });
   };
 
   const closeAddBook = () => {
-    setIsAddBookClicked(false);
+    dispatch({ type: "setIsAddBookClicked", payload: false });
   };
 
   function changeInputValue(booky) {
-    setBookID(booky.book_id);
+    dispatch({ type: "setBookID", payload: booky.book_id });
   }
 
   function handleAddIssueBook() {
-    const objBook =bookListAvailable.filter((item)=>item.book_id === bookID);
-    if(!bookID.trim().length || !objBook.length || (bookID.trim().toLowerCase() !== objBook[0].book_id.trim().toLowerCase()) ) {
-      // console.log("No such component")
+    const objBook = state.bookListAvailable.filter(
+      (item) => item.book_id === state.bookID
+    );
+    if (
+      !state.bookID.trim().length ||
+      !objBook.length ||
+      state.bookID.trim().toLowerCase() !==
+        objBook[0].book_id.trim().toLowerCase()
+    ) {
       return 0;
     }
-    if(selectedStudent.books_issued.length == 3) {
-      //Add here your book issue limit has reached.
+    if (selectedStudent.books_issued.length == 3) {
       alert("Your book issue limit has reached");
       return 0;
     }
 
-    const obj = {'no':objBook[0].no,'book_id':objBook[0].book_id};
-    obj._id=selectedStudent._id;
+    const obj = { no: objBook[0].no, book_id: objBook[0].book_id };
+    obj._id = selectedStudent._id;
     obj.id = selectedStudent.id;
     obj.profilePicture = selectedStudent.profilePicture;
     obj.name = selectedStudent.name;
@@ -95,33 +124,39 @@ const Modal = ({
     obj.title = objBook[0].title;
     obj.author = objBook[0].author;
     obj.dateOfIssue = new Date();
-    StudentDataApi.patchStudentBookInfo(obj).then(()=>{
+    StudentDataApi.patchStudentBookInfo(obj).then(() => {
       deleteUpdate();
-      setBookID('');
-      setUpdate((oldvalue)=>!update);
+      dispatch({ type: "setBookID", payload: "" });
+      dispatch({ type: "setUpdate", payload: !state.update });
       selectedStudent.books_issued.push(obj);
-      setIsAddBookClicked(false);
+      dispatch({ type: "setIsAddBookClicked", payload: false });
     });
-
-    
   }
 
-  function handleBookReturn(bookID) {
-    // console.log('Hello',selectedBookId);
+  function handleBookReturn() {             
     const obj = {};
     obj._id = selectedStudentId;
-    obj.book_id = selectedBookId;
+    obj.book_id = state.selectedBookId;
     console.log(obj);
-    StudentDataApi.deleteStudentDataBookInfo(obj).then((res)=>{deleteUpdate(); setUpdate(!update); closeModal();});
+    StudentDataApi.deleteStudentDataBookInfo(obj).then((res) => {
+      deleteUpdate();
+      dispatch({ type: "setUpdate", payload: !state.update });
+      closeModal();                             
+    });
   }
 
   return (
     <>
       <div className="modal-wrapper"></div>
-
       <div className="modal-container">
         <div className="col-1-of-2 editDetails">
-          <button className="modal_btn_close" onClick={()=>{deleteUpdate();closeModal()}}>
+          <button
+            className="modal_btn_close"
+            onClick={() => {
+              deleteUpdate();
+              closeModal();
+            }}
+          >
             <FontAwesomeIcon icon={faTimes} />
           </button>
           <div className="profile-container">
@@ -141,9 +176,9 @@ const Modal = ({
               <input
                 type="text"
                 defaultValue={selectedStudent.name}
-                disabled={!isEditEnabled || editedFieldIndex !== 3}
+                disabled={!state.isEditEnabled || state.editedFieldIndex !== 3}
                 className={
-                  isEditEnabled && editedFieldIndex === 3
+                  state.isEditEnabled && state.editedFieldIndex === 3
                     ? "editable-field"
                     : "nonEditable-field"
                 }
@@ -151,7 +186,7 @@ const Modal = ({
                   setEditDetails({ ...editDetails, name: e.target.value });
                 }}
               />
-              {isEditEnabled && editedFieldIndex === 3 ? (
+              {state.isEditEnabled && state.editedFieldIndex === 3 ? (
                 <span
                   className="edit-icon"
                   onClick={() => handleTickClick("name")}
@@ -169,13 +204,12 @@ const Modal = ({
             <div className="input-container">
               <label className="labels">Email:</label>
               <br />
-
               <input
                 type="text"
                 defaultValue={selectedStudent.email}
-                disabled={!isEditEnabled || editedFieldIndex !== 0}
+                disabled={!state.isEditEnabled || state.editedFieldIndex !== 0}
                 className={
-                  isEditEnabled && editedFieldIndex === 0
+                  state.isEditEnabled && state.editedFieldIndex === 0
                     ? "editable-field"
                     : "nonEditable-field"
                 }
@@ -183,7 +217,7 @@ const Modal = ({
                   setEditDetails({ ...editDetails, email: e.target.value });
                 }}
               />
-              {isEditEnabled && editedFieldIndex === 0 ? (
+              {state.isEditEnabled && state.editedFieldIndex === 0 ? (
                 <span
                   className="edit-icon"
                   onClick={() => handleTickClick("email")}
@@ -204,9 +238,9 @@ const Modal = ({
               <input
                 type="text"
                 defaultValue={selectedStudent.id}
-                disabled={!isEditEnabled || editedFieldIndex !== 1}
+                disabled={!state.isEditEnabled || state.editedFieldIndex !== 1}
                 className={
-                  isEditEnabled && editedFieldIndex === 1
+                  state.isEditEnabled && state.editedFieldIndex === 1
                     ? "editable-field"
                     : "nonEditable-field"
                 }
@@ -214,7 +248,7 @@ const Modal = ({
                   setEditDetails({ ...editDetails, id: e.target.value });
                 }}
               />
-              {isEditEnabled && editedFieldIndex === 1 ? (
+              {state.isEditEnabled && state.editedFieldIndex === 1 ? (
                 <span
                   className="edit-icon"
                   onClick={() => handleTickClick("id")}
@@ -235,9 +269,9 @@ const Modal = ({
               <input
                 type="text"
                 defaultValue={selectedStudent.mobile}
-                disabled={!isEditEnabled || editedFieldIndex !== 2}
+                disabled={!state.isEditEnabled || state.editedFieldIndex !== 2}
                 className={
-                  isEditEnabled && editedFieldIndex === 2
+                  state.isEditEnabled && state.editedFieldIndex === 2
                     ? "editable-field"
                     : "nonEditable-field"
                 }
@@ -245,7 +279,7 @@ const Modal = ({
                   setEditDetails({ ...editDetails, mobile: e.target.value });
                 }}
               />
-              {isEditEnabled && editedFieldIndex === 2 ? (
+              {state.isEditEnabled && state.editedFieldIndex === 2 ? (
                 <span
                   className="edit-icon"
                   onClick={() => handleTickClick("mobile")}
@@ -287,10 +321,17 @@ const Modal = ({
           </div>
         </div>
         <div className="col-1-of-2 bookDetails">
-          {isAddBookClicked ? (
+          {state.isAddBookClicked ? (
             <div className="issueBook">
               <h2>Issue a new Book</h2>
-              <input type="text" defaultValue={ bookID } placeholder="Enter BookID" onChange={(e)=>setBookID(e.target.value)} />
+              <input
+                type="text"
+                defaultValue={state.bookID}
+                placeholder="Enter BookID"
+                onChange={(e) =>
+                  dispatch({ type: "setBookID", payload: e.target.value })
+                }
+              />
               <div className="issueBook__btns">
                 <button onClick={handleAddIssueBook}>Issue Book</button>
                 <button onClick={closeAddBook}>Cancel</button>
@@ -298,8 +339,11 @@ const Modal = ({
 
               <div>
                 <div className="BookModal__StudentList Modal_StudenList">
-                  {bookListAvailable.map((booky) => (
-                    <div onClick={()=>changeInputValue(booky)} className="bookModal__studentCards modal_BookCards">
+                  {state.bookListAvailable.map((booky) => (
+                    <div
+                      onClick={() => changeInputValue(booky)}
+                      className="bookModal__studentCards modal_BookCards"
+                    >
                       <img
                         className="bookModal__studentImg modal__bookImg"
                         src={booky.image}
@@ -308,7 +352,6 @@ const Modal = ({
                       <div>
                         <h4>{booky.title}</h4>
                         <p>{booky.book_id}</p>
-                        {/* <span>{booky.quantity}</span> */}
                       </div>
                     </div>
                   ))}
@@ -323,20 +366,27 @@ const Modal = ({
                   <div key={book.book_id} className="book-item">
                     <button
                       className={`menu-icon ${
-                        selectedBookId === book.book_id ? "active" : ""
+                        state.selectedBookId === book.book_id ? "active" : ""
                       }`}
                       onClick={() => handleMenuToggle(book.book_id)}
                     >
                       <FontAwesomeIcon icon={faBars} />
-                      {selectedBookId === book.book_id&& (
+                      {state.selectedBookId === book.book_id && (
                         <span className="arrow"></span>
                       )}
                     </button>
-                    {selectedBookId === book.book_id && (
-                      <ul className={`menu-options ${selectedBookId === book.book_id ? 'open' : ''}`}>
+                    {state.selectedBookId === book.book_id && (
+                      <ul
+                        className={`menu-options ${
+                          state.selectedBookId === book.book_id ? "open" : ""
+                        }`}
+                      >
                         <li>
-                          <a className="opt1" onClick={() => handleBookReturn(book.book_id)}>
-                          Mark as Returned
+                          <a
+                            className="opt1"
+                            onClick={() => handleBookReturn()}
+                          >
+                            Mark as Returned
                           </a>
                         </li>
                         <li>
@@ -362,7 +412,13 @@ const Modal = ({
                     <p>Author: {book.author}</p>
                     <p>ID: {book.book_id}</p>
                     <br />
-                    <p>{new Date(book.dateOfIssue).getDate() +' '+  (new Date(book.dateOfIssue).getMonth()+1)+' '+ new Date(book.dateOfIssue).getFullYear()}</p>
+                    <p>
+                      {new Date(book.dateOfIssue).getDate() +
+                        " " +
+                        (new Date(book.dateOfIssue).getMonth() + 1) +
+                        " " +
+                        new Date(book.dateOfIssue).getFullYear()}
+                    </p>
                     <span
                       className={`bookStatus ${
                         book.status === "Issued" ? "issued" : "returned"
