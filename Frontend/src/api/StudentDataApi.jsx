@@ -6,9 +6,18 @@ function getStudentData() {
       import.meta.env.VITE_BASE_URL + "/studentData",
       {
         "Content-Type": "application/json",
-      } 
+      }  
     );
 
+    const data = await response.data;
+    resolve({ data });
+  });
+}
+
+//Yet to test
+function getStudentDataAvailable(id) {
+  return new Promise(async (resolve) => {
+    const response = await axios.get(import.meta.env.VITE_BASE_URL + "/studentData/Available/"+id);
     const data = await response.data;
     resolve({ data });
   });
@@ -28,18 +37,18 @@ function postStudentData(newStudent) {
   });
 }
 
-function putStudentData(newStudent) {
-  return new Promise(async (resolve) => {
-    const response = await axios.put(
-      import.meta.env.VITE_BASE_URL + "/studentData",newStudent,{
-        headers: {
-          "Content-Type": "application/json",
-        }
-      });
-    const data = await response.data;
-    resolve({ data });
-  });
-}
+// function putStudentData(newStudent) {
+//   return new Promise(async (resolve) => {
+//     const response = await axios.put(
+//       import.meta.env.VITE_BASE_URL + "/studentData",newStudent,{
+//         headers: {
+//           "Content-Type": "application/json",
+//         }
+//       });
+//     const data = await response.data;
+//     resolve({ data });
+//   });
+// }
 
 function patchStudentData(editStudentData) {
   return new Promise(async (resolve) => {
@@ -85,4 +94,4 @@ function deleteStudentDataBookInfo(bookData) {
   });
 }
 
-export default { getStudentData, postStudentData, deleteStudentData, putStudentData,patchStudentData,patchStudentBookInfo,deleteStudentDataBookInfo };
+export default { getStudentData, getStudentDataAvailable,postStudentData, deleteStudentData,patchStudentData,patchStudentBookInfo,deleteStudentDataBookInfo };

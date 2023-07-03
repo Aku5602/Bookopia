@@ -18,12 +18,12 @@ router.get("/bookData/Available/:id", async (request, response) => {
     // const LoginUser = await Login.findOne();
     const id = request.params.id;
     // console.log(id);
-    const bookData = await BookDetails.find({'quantity':{$gt:0},'students_info':{$ne:[id]}}).sort({'no': 1});
+    const bookData = await BookDetails.find({'quantity':{$gt:0},'students_info.id':{$ne:id}}).sort({'no': 1});
     // console.log(bookData[0]);
     response.send(JSON.stringify(bookData));
 })
 
-//Create or PUT  [Not yet Tested and created]
+//Create 
 router.post("/bookData", uploader.single("file"), async (request, response) => {
     // const LoginUser = await Login.findOne();
     // console.log(request.body, "  File: ",request.file.path);
@@ -38,14 +38,23 @@ router.post("/bookData", uploader.single("file"), async (request, response) => {
     response.sendStatus(200);
 })
 
-//Update  [Not yet Tested and created]
+//Update
 router.put("/bookData", async (request, response) => {
     // const LoginUser = await Login.findOne();
     const obj = { ...request.body }
-    obj.no = +prevBook[0].no;
+    obj.no = +obj.no;
     obj.quantity = +obj.quantity;
 
     const bookData = await BookDetails.updateOne({'no':obj.no},obj);
+    response.sendStatus(200);
+})
+
+router.patch("/bookData", async (request, response) => {
+ 
+    const obj = { ...request.body }
+    
+    const bookDataEditResponse = await BookDetails.updateOne({ '_id':obj._id }, { $set: {[request.body.key]:request.body.value} });
+    // console.log(bookDataEditResponse);
     response.sendStatus(200);
 })
 

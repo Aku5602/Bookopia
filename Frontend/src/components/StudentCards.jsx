@@ -43,7 +43,7 @@ const StudentCards = ({ student }) => {
       </div>
 
       {showModal && (
-        <Modal  closeModal={closeModal} selectedStudentId={selectedStudentId} selectedStudent={...selectedStudent} books={books} BooksInventory={BooksInventory}>
+        <Modal  closeModal={closeModal} selectedStudentId={selectedStudentId} selectedStudent={selectedStudent} books={books} BooksInventory={BooksInventory}>
 
         </Modal>
       )}

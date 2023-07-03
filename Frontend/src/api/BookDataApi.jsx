@@ -6,7 +6,7 @@ function getBookData() {
     const data = await response.data;
     // console.log(data);
     resolve({ data });
-  });
+  }); 
 }
 
 function getBookDataAvailable(id) {
@@ -16,6 +16,7 @@ function getBookDataAvailable(id) {
     resolve({ data });
   });
 }
+
  
 function postBookData(newBook) {
   return new Promise(async (resolve) => {
@@ -30,6 +31,18 @@ function postBookData(newBook) {
   });
 }
 //Update
+function patchBookData(editBookData) {
+  return new Promise(async (resolve) => {
+    const response = await axios.patch(
+      import.meta.env.VITE_BASE_URL + "/bookData",editBookData,{
+        headers: {
+          "Content-Type": "application/json",
+        }
+      });
+    const data = await response.data;
+    resolve({ data });
+  });
+}
 
 //Delete
 
@@ -44,4 +57,4 @@ function deleteBookData(oldBookID) {
   });
 }
 
-export default { getBookData,postBookData,deleteBookData,getBookDataAvailable };
+export default { getBookData,postBookData,deleteBookData,getBookDataAvailable,patchBookData };

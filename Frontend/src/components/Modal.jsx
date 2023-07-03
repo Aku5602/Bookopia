@@ -89,6 +89,8 @@ const Modal = ({
     const obj = {'no':objBook[0].no,'book_id':objBook[0].book_id};
     obj._id=selectedStudent._id;
     obj.id = selectedStudent.id;
+    obj.profilePicture = selectedStudent.profilePicture;
+    obj.name = selectedStudent.name;
     obj.image = objBook[0].image;
     obj.title = objBook[0].title;
     obj.author = objBook[0].author;
@@ -105,7 +107,7 @@ const Modal = ({
   }
 
   function handleBookReturn(bookID) {
-    console.log('Hello',selectedBookId);
+    // console.log('Hello',selectedBookId);
     const obj = {};
     obj._id = selectedStudentId;
     obj.book_id = selectedBookId;

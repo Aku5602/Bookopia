@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import "../styles/BookModal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -11,7 +11,10 @@ import {
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import copy from "clipboard-copy";
-
+import StudentDataApi from "../api/StudentDataApi";
+import BookDataApi from "../api/BookDataApi";
+import { DeleteContext } from "../pages/Books";
+// ////////////////////////////////////////////////////////////////////////////////////////////
 const BookModal = ({
   closeModal,
   selectedBookId,
@@ -27,14 +30,39 @@ const BookModal = ({
   const [isAddingStudent, setIsAddingStudent] = useState(false);
   const [studentName, setStudentName] = useState("");
   const [isBookListVisible, setBookListVisible] = useState(true);
+  const [update,setUpdate] = useState(false);
+  const [studentID,setStudentID] = useState('');
+  const [studentListAvailable, setStudentListAvailable] = useState([]);
+  const [editDetails, setEditDetails] = useState(selectedBook);
+  const deleteUpdate = useContext(DeleteContext);
+  // console.log("====>>>>",studentID);
+
+  useEffect(()=>{
+    // console.log(selectedBook.book_id)
+    StudentDataApi.getStudentDataAvailable(selectedBook.book_id).then((res) => {
+      setStudentListAvailable([...res.data]);
+    });
+  },[update]) 
 
   const handleEditClick = (index) => {
     setEditedFieldIndex(index);
     setIsEditEnabled(true);
   };
 
-  const handleTickClick = () => {
+  const handleTickClick = (key) => {
     setIsEditEnabled(false);
+     
+    const obj = { _id: editDetails._id };
+    if (
+      editDetails[key].trim().toLowerCase() ===
+      selectedBook[key].trim().toLowerCase()
+    ) {
+      return 0;
+    } else {
+      obj["key"] = key;
+      obj["value"] = editDetails[key];
+      BookDataApi.patchBookData(obj).then(()=>{deleteUpdate(); });
+    }
     // Implement here the functionality to save the updated student values in altas
   };
 
@@ -50,6 +78,44 @@ const BookModal = ({
 
   const handleAssign = () => {
 
+    const objStudent= studentListAvailable.filter((item)=>item.id === studentID);
+    if(!studentID.trim().length || !objStudent.length || (studentID.trim().toLowerCase() !== objStudent[0].id.trim().toLowerCase()) ) {
+      // console.log("No such component")
+      return 0;
+    }
+    if(+selectedBook.quantity == 0) {
+      //Add here your book issue limit has reached.
+      alert("All copies of book are used");
+      return 0;
+    }
+
+    const obj = {'id':studentID,'book_id':selectedBook.book_id};
+    obj._id= objStudent[0]._id;
+    obj.id = objStudent[0].id;
+    obj.profilePicture =objStudent[0].profilePicture;
+    obj.name = objStudent[0].name;
+    obj.image = selectedBook.image;
+    obj.title = selectedBook.title;
+    obj.author = selectedBook.author;
+    obj.no = selectedBook.no;
+    obj.dateOfIssue = new Date();
+    // console.log(obj);
+    StudentDataApi.patchStudentBookInfo(obj).then(()=>{
+      deleteUpdate();
+      setStudentID('');
+      setUpdate((oldvalue)=>!update);
+      selectedBook.books_issued.push(obj);
+      setIsAddingStudent(false);
+    });
+  }
+
+  const handleDeleteStudent = (id) => {
+    // console.log('Hello',selectedBookId);
+    const obj = {};
+    obj._id = id;
+    obj.book_id = selectedBook.book_id;
+    console.log(obj);
+    StudentDataApi.deleteStudentDataBookInfo(obj).then((res)=>{deleteUpdate(); setUpdate(!update); closeModal();});
   }
 
   const handleCancel = () => {
@@ -57,6 +123,10 @@ const BookModal = ({
     setStudentName("");
     setBookListVisible(false);
   };
+
+  function changeInputValue(student) {
+    setStudentID(student.id);
+  }
 
   const studentListButtonText = isStudentListClicked
     ? "Edit Details"
@@ -87,7 +157,7 @@ const BookModal = ({
       clearTimeout(progressBarTimeout);
     };
   }, [showAlert]);
-
+// ////////////////////////////////////////////////////////////////////////////////////////////
   return (
     <>
       <div className="modal-wrapper"></div>
@@ -99,20 +169,20 @@ const BookModal = ({
           </button>
 
           <div className="book-profile">
-            <img className="book-image" src={selectedBook.image} alt="User" />
+            <img className="book-image" src={editDetails.image} alt="User" />
             <div>
-              <h2 className="modal_title">{selectedBook.title}</h2>
-              <h4>{selectedBook.author}</h4>
+              <h2 className="modal_title">{editDetails.title}</h2>
+              <h4>{editDetails.author}</h4>
             </div>
           </div>
 
           <div className="details-container">
-            <p>{selectedBook.description}</p>
+            <p>{editDetails.description}</p>
 
             <p className="bookId">
               BookID:
               <span className="book_id_copy">
-                <strong>{selectedBook.book_id}</strong>
+                <strong>{editDetails.book_id}</strong>
               </span>
               &nbsp;&nbsp;
               <abbr title="Copy to Clipboard">
@@ -122,10 +192,10 @@ const BookModal = ({
               </abbr>
             </p>
             <div className="stats currentRecords">
-              <label>Qunatity:</label>
-              <span>{selectedBook.quantity}</span>
+              <label>Quantity:</label>
+              <span>{editDetails.quantity}</span>
               <label>Copies Issued:</label>
-              <span>{selectedBook.copies_issued}</span>
+              <span>{editDetails.copies_issued}</span>
             </div>
 
             <button
@@ -141,7 +211,7 @@ const BookModal = ({
             <div>
               {!isAddingStudent && (
                 <div className="isStudentNotClicked">
-                  <h3>Students:</h3>
+                  <h3>Enrolled Students:</h3>
                   <button
                     className="bookModal___addStudent"
                     onClick={handleAddStudent}
@@ -150,25 +220,25 @@ const BookModal = ({
                   </button>
                 </div>
               )}
-
+{/* ///////////////////////////////////////////////////////////////////////////////////////////// */}
               {isAddingStudent ? (
                 
                 <div className="bookModal_EntireStudentList">
-                  <h3>Assign Book</h3>
+                  <h3>Add a Student</h3>
                   <input
                     type="text"
-                    placeholder="Enter student name"
-                    value={studentName}
-                    onChange={(e) => setStudentName(e.target.value)}
+                    placeholder="Enter student id"
+                    defaultValue={studentID}
+                    onChange={(e) => setStudentID(e.target.value)}
                   />
                   <div className="issueBook__btns">
-                    <button onClick={handleAssign}>Assign</button>
+                    <button onClick={handleAssign}>Add</button>
                     <button onClick={handleCancel}>Cancel</button>
                   </div>
                   <div className="BookModal__StudentList Modal_StudenList">
 
-                    <p>OR pick a student manually:</p>
-                    {students.map((stud) => (
+                    <p>Select a student or write the id manually:</p>
+                    {studentListAvailable.map((stud) => (
                       <div onClick={() => changeInputValue(stud)} className="bookModal__studentCards modal_BookCards">
                         <img
                           className="bookModal__studentImg modal__bookImg"
@@ -187,7 +257,7 @@ const BookModal = ({
 
               ) : (
                 <div className="BookModal__StudentList">
-                  {studentsss.map((student) => (
+                  {selectedBook.students_info.map((student) => (
                     <div className="bookModal__studentCards">
                       <img
                         className="bookModal__studentImg"
@@ -198,7 +268,7 @@ const BookModal = ({
                         <h4>{student.name}</h4>
                         <p>{student.id}</p>
                       </div>
-                      <button className="delete-icon">
+                      <button className="delete-icon" onClick={()=>handleDeleteStudent(student.id)}>
                         <FontAwesomeIcon icon={faTrash} />
                       </button>
                     </div>
@@ -208,6 +278,7 @@ const BookModal = ({
             </div>
 
           ) : (
+            // ////////////////////////////////////////////////////////////////////////////////////
             <>
               <div className="editBookInfo">
                 <h3>Edit book details:</h3>
@@ -223,10 +294,12 @@ const BookModal = ({
                       isEditEnabled && editedFieldIndex === 0
                         ? "editable-field"
                         : "nonEditable-field"
-                    }
+                    }  onChange={(e) => {
+                      setEditDetails({ ...editDetails, 'title': e.target.value });
+                    }}
                   />
                   {isEditEnabled && editedFieldIndex === 0 ? (
-                    <span className="edit-icon" onClick={handleTickClick}>
+                    <span className="edit-icon" onClick={() => handleTickClick("title")}>
                       <FontAwesomeIcon icon={faCheck} />
                       <span className="tooltip">Save</span>
                     </span>
@@ -252,10 +325,12 @@ const BookModal = ({
                       isEditEnabled && editedFieldIndex === 1
                         ? "editable-field"
                         : "nonEditable-field"
-                    }
+                    } onChange={(e) => {
+                      setEditDetails({ ...editDetails, 'book_id': e.target.value });
+                    }}
                   />
                   {isEditEnabled && editedFieldIndex === 1 ? (
-                    <span className="edit-icon" onClick={handleTickClick}>
+                    <span className="edit-icon" onClick={() => handleTickClick("book_id")}>
                       <FontAwesomeIcon icon={faCheck} />
                       <span className="tooltip">Save</span>
                     </span>
@@ -281,10 +356,12 @@ const BookModal = ({
                       isEditEnabled && editedFieldIndex === 2
                         ? "editable-field"
                         : "nonEditable-field"
-                    }
+                    } onChange={(e) => {
+                      setEditDetails({ ...editDetails, 'author': e.target.value });
+                    }}
                   />
                   {isEditEnabled && editedFieldIndex === 2 ? (
-                    <span className="edit-icon" onClick={handleTickClick}>
+                    <span className="edit-icon" onClick={() => handleTickClick("author")}>
                       <FontAwesomeIcon icon={faCheck} />
                       <span className="tooltip">Save</span>
                     </span>
@@ -310,10 +387,12 @@ const BookModal = ({
                       isEditEnabled && editedFieldIndex === 3
                         ? "editable-field"
                         : "nonEditable-field"
-                    }
+                    } onChange={(e) => {
+                      setEditDetails({ ...editDetails, 'image': e.target.value });
+                    }}
                   />
                   {isEditEnabled && editedFieldIndex === 3 ? (
-                    <span className="edit-icon" onClick={handleTickClick}>
+                    <span className="edit-icon" onClick={() => handleTickClick("image")}>
                       <FontAwesomeIcon icon={faCheck} />
                       <span className="tooltip">Save</span>
                     </span>
@@ -340,10 +419,12 @@ const BookModal = ({
                         ? "editable-field textareaDescE"
                         : "nonEditable-field textareaDesc"
                     }
-                    cols={40}
+                    cols={40} onChange={(e) => {
+                      setEditDetails({ ...editDetails, 'description': e.target.value });
+                    }}
                   />
                   {isEditEnabled && editedFieldIndex === 4 ? (
-                    <span className="edit-icon" onClick={handleTickClick}>
+                    <span className="edit-icon" onClick={() => handleTickClick("description")}>
                       <FontAwesomeIcon icon={faCheck} />
                       <span className="tooltip">Save</span>
                     </span>
@@ -362,6 +443,7 @@ const BookModal = ({
           )}
         </div>
       </div>
+      {/* ///////////////////////////////////////////////////////////////////////////////////////// */}
       {showAlert && (
         <div className="alert-box">
           <FontAwesomeIcon icon={faCheckCircle} className="alert-icon" />

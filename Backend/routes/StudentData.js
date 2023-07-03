@@ -15,6 +15,15 @@ router.get("/studentData", async (request, response) => {
     response.send(JSON.stringify(studentData));
 })
 
+router.get("/studentData/Available/:id", async (request, response) => {
+    // const LoginUser = await Login.findOne();
+    const id = request.params.id;
+    // console.log(id);
+    const studentData = await StudentDetails.find({'books_issued.book_id':{$ne:id}}).sort({'id': 1});
+    // console.log(studentData[0]);
+    response.send(JSON.stringify(studentData));
+})
+
 //Create
 router.post("/studentData", uploader.single("file"), async (request, response) => {
     // const LoginUser = await Login.findOne();
@@ -54,12 +63,17 @@ router.patch("/studentData", async (request, response) => {
 router.patch("/studentData/BookInfo", async (request, response) => {
     // const LoginUser = await Login.findOne();
     const obj = { ...request.body }
-    const id = obj._id
+    const obj1 = {};
+    obj1.name = obj.name;
+    obj1.id = obj.id;
+    obj1.profilePicture = obj.profilePicture;
+    console.log(obj);
+    console.log(obj1);
     
     const studentDataEditResponse = await StudentDetails.updateOne({ '_id':obj._id }, { $push: {'books_issued':obj}} );
-  
-    const removeBookQuantity = await BookDetails.updateOne({'book_id':obj.book_id,'no':obj.no,'quantity':{$gt:0}},{$inc:{'quantity':-1},$push:{'students_info':obj.id}});
-   
+    // console.log(studentDataEditResponse);
+    const removeBookQuantity = await BookDetails.updateOne({'book_id':obj.book_id,'no':obj.no,'quantity':{$gt:0}},{$inc:{'copies_issued':1,'quantity':-1},$push:{'students_info':obj1}});
+    // console.log(removeBookQuantity);
     response.sendStatus(200); 
 })
 
@@ -67,7 +81,7 @@ router.put("/studentData", async (request, response) => {
     // const LoginUser = await Login.findOne();
     const obj = { ...request.body }
     const studentDataEditResponse = await StudentDetails.replaceOne({ '_id': (obj._id) }, obj);
-    console.log(studentDataEditResponse);
+    // console.log(studentDataEditResponse);
     response.sendStatus(200);
 })
 
@@ -105,11 +119,13 @@ router.delete("/studentData/:id", async (request, response) => {
 })
 
 router.delete("/studentData/BookDelete/:_id/:book_id",async (request,response)=>{
+    // console.log(request.params)
     const bookDeleteResponse = await StudentDetails.updateOne({'id': request.params._id},{"$pull":{"books_issued":{"book_id":request.params.book_id}}});
     // console.log(bookDeleteResponse);
-    const increaseQuantityResponse = await BookDetails.updateOne({'book_id':request.params.book_id},{$inc:{'quantity':1},$pull:{"students_info":request.params._id}});
+    const increaseQuantityResponse = await BookDetails.updateOne({'book_id':request.params.book_id},{$inc:{'quantity':1,'copies_issued':-1},$pull:{"students_info":{'id':request.params._id}}});
     // console.log(increaseQuantityResponse);
-    response.sendStatus(200);  
+    
+    response.sendStatus(200);   
 });
 
 
