@@ -325,13 +325,14 @@
   0% {
     left: 0;
   }
+
   100% {
     left: 100%;
   }
 }
 
 .bookModal___addStudent {
-    border-radius: 50%;
+  border-radius: 50%;
   height: 40px;
   width: 40px;
   font-size: 25px;

@@ -9,11 +9,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import StudentDataApi from "../api/StudentDataApi";
 import BookDataApi from "../api/BookDataApi";
-import { DeleteContext } from "../pages/Students";
+import { UpdateContext } from "../pages/StudentsPage";
 
 const Modal = ({ closeModal, selectedStudentId, selectedStudent }) => {
   const [editDetails, setEditDetails] = useState(selectedStudent);
-  const deleteUpdate = useContext(DeleteContext);
+  const updateContext = useContext(UpdateContext);
 
   const initialState = {
     selectedBookId: null,
@@ -122,7 +122,7 @@ const Modal = ({ closeModal, selectedStudentId, selectedStudent }) => {
     obj.author = objBook[0].author;
     obj.dateOfIssue = new Date();
     StudentDataApi.patchStudentBookInfo(obj).then(() => {
-      deleteUpdate();
+      updateContext();
       dispatch({ type: "setBookID", payload: "" });
       dispatch({ type: "setUpdate", payload: !state.update });
       selectedStudent.books_issued.push(obj);
@@ -135,7 +135,7 @@ const Modal = ({ closeModal, selectedStudentId, selectedStudent }) => {
     obj._id = selectedStudentId;
     obj.book_id = state.selectedBookId;
     StudentDataApi.deleteStudentDataBookInfo(obj).then((res) => {
-      deleteUpdate();
+      updateContext();
       dispatch({ type: "setUpdate", payload: !state.update });
       closeModal();
     });
@@ -149,7 +149,7 @@ const Modal = ({ closeModal, selectedStudentId, selectedStudent }) => {
           <button
             className="modal_btn_close"
             onClick={() => {
-              deleteUpdate();
+              updateContext();
               closeModal();
             }}
           >

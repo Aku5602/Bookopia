@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Player, Controls } from '@lottiefiles/react-lottie-player';
 
 const HomePage = lazy(() => import("./pages/HomePage"));
-const Students = lazy(() => import("./pages/Students"));
-const Books = lazy(() => import("./pages/Books"));
+const Students = lazy(() => import("./pages/StudentsPage"));
+const Books = lazy(() => import("./pages/BooksPage"));
 
 const App = () => {
 

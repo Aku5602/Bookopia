@@ -1,12 +1,12 @@
 import React, { useState, useContext } from "react";
 import BookModal from "./BookModal";
 import BookDataApi from "../api/BookDataApi";
-import { DeleteContext } from "../pages/Books";
+import { UpdateContext } from "../pages/BooksPage";
 
 const BookCards = ({ book }) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedBook, setSelectedBook] = useState(null);
-  const deleteUpdate = useContext(DeleteContext);
+  const updateContext = useContext(UpdateContext);
 
   const handleUpdateClick = () => {
     setSelectedBook(book);
@@ -15,7 +15,7 @@ const BookCards = ({ book }) => {
 
   const handleDelete = (oldBookID) => {
     BookDataApi.deleteBookData(oldBookID).then(() => {
-      deleteUpdate();
+      updateContext();
     });
   };
 

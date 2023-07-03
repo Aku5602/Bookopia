@@ -13,10 +13,11 @@ import {
 import copy from "clipboard-copy";
 import StudentDataApi from "../api/StudentDataApi";
 import BookDataApi from "../api/BookDataApi";
-import { DeleteContext } from "../pages/Books";
+import { UpdateContext } from "../pages/BooksPage";
+
 const BookModal = ({ closeModal, selectedBook }) => {
   const [editDetails, setEditDetails] = useState(selectedBook);
-  const deleteUpdate = useContext(DeleteContext);
+  const updateContext = useContext(UpdateContext);
 
   const initialState = {
     isEditEnabled: false,
@@ -84,7 +85,7 @@ const BookModal = ({ closeModal, selectedBook }) => {
       obj["key"] = key;
       obj["value"] = editDetails[key];
       BookDataApi.patchBookData(obj).then(() => {
-        deleteUpdate();
+        updateContext();
       });
     }
   };
@@ -130,7 +131,7 @@ const BookModal = ({ closeModal, selectedBook }) => {
     obj.no = selectedBook.no;
     obj.dateOfIssue = new Date();
     StudentDataApi.patchStudentBookInfo(obj).then(() => {
-      deleteUpdate();
+      updateContext();
       dispatch({ type: "setStudentID", payload: "" });
       dispatch({ type: "setUpdate", payload: !state.update });
       dispatch({ type: "setIsAddingStudent", payload: false });
@@ -143,7 +144,7 @@ const BookModal = ({ closeModal, selectedBook }) => {
     obj._id = id;
     obj.book_id = selectedBook.book_id;
     StudentDataApi.deleteStudentDataBookInfo(obj).then(() => {
-      deleteUpdate();
+      updateContext();
       dispatch({ type: "setUpdate", payload: !state.update });
       closeModal();
     });
