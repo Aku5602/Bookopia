@@ -1,0 +1,12 @@
+.bookPageContainer {
+    font-family: Arial, sans-serif;
+    color: $color-black;
+
+    &__carousel {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        justify-content: center;
+        padding: 2rem;
+    }
+}

@@ -1,0 +1,31 @@
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+
+    &__paginationWidget {
+        list-style: none;
+        display: flex;
+        gap: 1rem;
+
+        & li {
+            padding: .5rem 1rem;
+            border: 1px solid $color-gray-light-3;
+            border-radius: .4rem;
+            cursor: pointer;
+            height: 3rem;
+            width: 3rem;
+            font-size: 1.5rem;
+
+            &.active {
+                background-color: $color-primary;
+                color: $color-white;
+            }
+        
+            &:hover {
+                background-color: $color-primary-light;
+                color: $color-white;
+            }
+        }  
+    }    
+}

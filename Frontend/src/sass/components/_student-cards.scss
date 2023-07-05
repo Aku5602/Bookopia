@@ -1,0 +1,57 @@
+.student-card {
+    display: flex;
+    align-items: center;
+    width: 33rem;
+    padding: 2rem;
+    border: 1px solid $color-gray-light-3;
+    border-radius: .4rem;
+    box-shadow: 0 2px .4rem rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+
+    &:hover {
+        box-shadow: 0 .4rem .8rem rgba(0, 0, 0, 0.2);
+        transform: scale(1.05);
+        cursor: pointer;
+        background-color: $color-black;
+        color: $color-primary-extraLight;
+    }
+    
+    & img {
+        width: 10rem;
+        height: 10rem;
+        border-radius: 50%;
+        margin-right: 1rem;
+    }
+    
+    &__student-details {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+
+        & h3 {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: .5rem;
+        }
+        
+        & p {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+    }
+    
+    &__buttons {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1rem;
+
+        &--del {
+            background-color: $color-red;
+            color: $color-white;
+        }
+        
+        &--del:hover {
+            background-color: $color-lightcoral;
+        }
+    }
+}

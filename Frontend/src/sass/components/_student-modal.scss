@@ -1,0 +1,289 @@
+.profile-container {
+    display: flex;
+    align-items: center;
+
+    &__name {
+        font-size: 2.4rem;
+        font-family: $font-family_worksans;
+    }
+
+    &__profile-picture {
+        width: 10rem;
+        height: 10rem;
+        margin-right: 2rem;
+        border-radius: 50%;
+        margin-bottom: 3rem;
+    }
+}
+
+.details-container {
+    button {
+        margin-top: 1rem;
+    }
+}
+
+.edit-icon {
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+
+    &:hover {
+        cursor: pointer;
+        color: $color-primary-light;
+    }
+
+    &:hover .tooltip {
+        opacity: 1;
+    }
+}
+
+.input-container {
+    margin-bottom: 1rem;
+
+    input {
+        width: 30rem;
+        margin-right: 1rem;
+    }
+}
+
+.labels {
+    margin-bottom: 1rem;
+    padding-left: .5rem;
+}
+
+.modal-container {
+    display: flex;
+}
+
+.col-1-of-2 {
+    min-width: 40rem;
+}
+
+.studentModalContainer {
+    &__editDetails {
+        flex-grow: 1;
+        border-right: 1px solid $color-gray-light-3;
+        flex-basis: 50%;
+        padding: 0 1rem;
+        padding-right: 2rem;
+        margin-right: 1rem;
+    }
+
+    &__bookDetails {
+        flex-grow: 1;
+        padding-left: 3rem;
+        min-width: 50rem;
+        padding-right: 2rem;
+
+        & h3 {
+            margin-bottom: 2rem;
+        }
+    }
+
+    &__book-carousel {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        max-height: 46rem;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+}
+
+.book-item {
+    margin: 1rem;
+    padding: 1rem;
+    border: 1px solid $color-gray-light-3;
+    border-radius: .5rem;
+    box-sizing: border-box;
+    height: auto;
+    transition: transform all .5 ease;
+    position: relative;
+    max-width: 20rem;
+
+    &:hover {
+        background: $color-black;
+        transform: scale(1.04);
+    }
+
+    & img {
+        width: 100%;
+        height: 20rem;
+        border-radius: .5rem;
+        margin-bottom: 1rem;
+    }
+
+    & h4 {
+        font-size: 1.6rem;
+        margin-bottom: .5rem;
+    }
+
+    & p {
+        font-size: 1.4rem;
+        color: $color-grey-dark;
+        margin-bottom: 0;
+    }
+
+    & .menu-options {
+        display: none;
+    }
+
+    & .menu-icon:focus+.menu-options {
+        display: block;
+        cursor: pointer;
+    }
+}
+
+.bookStatus {
+    border-radius: .5rem;
+    display: inline-block;
+    margin-top: 1rem;
+    display: none;
+}
+
+.issued {
+    background-color: $color-primary-extraLight;
+    padding: 2px .5rem;
+}
+
+.returned {
+    background-color: $color-green;
+    padding: 2px .5rem;
+}
+
+.menu-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    background: rgba(255, 255, 255, .7);
+    color: $color-black;
+
+    &:hover {
+        background: rgba(255, 255, 255, 1);
+    }
+}
+
+.menu-options {
+    position: absolute;
+    top: 5.5rem;
+    right: 3rem;
+    background-color: $color-mattBlack;
+    border: 1px solid $color-gray-light-3;
+    color: $color-white !important;
+    padding: .5rem;
+    list-style-type: none;
+    display: none;
+    z-index: 9999;
+    font-size: 1.3rem;
+    padding: .5rem 1rem;
+    text-align: center;
+    transform: translateY(1rem);
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: -.8rem;
+        right: 10%;
+        transform: translateX(50%);
+        border-left: .8rem solid transparent;
+        border-right: .8rem solid transparent;
+        border-bottom: .8rem solid $color-mattBlack;
+    }
+
+    & li a {
+        display: inline-block;
+        margin: .5rem 0;
+        text-decoration: none;
+        color: $color-white;
+        transition: all .3s ease;
+
+        &:hover {
+            transform: scale(1.05);
+            color: $color-primary;
+        }
+    }
+
+    &:focus,
+    &:focus-within {
+        display: none;
+    }
+
+    &.open {
+        display: block;
+        cursor: pointer;
+    }
+}
+
+.fineToBePaid {
+    background: $color-red;
+    padding: .5rem 1rem;
+    border-radius: .5rem;
+    margin-right: 1rem;
+}
+
+.booksIssued {
+    margin-top: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.finePaid {
+    background: $color-green;
+    padding: .2rem .4rem;
+    margin-right: 1rem;
+    border-radius: .5rem;
+}
+
+.nonEditable-field {
+    color: $color-white;
+    cursor: not-allowed;
+}
+
+.tooltip {
+    position: absolute;
+    top: 50%;
+    left: calc(100% + 1rem);
+    transform: translateY(-50%);
+    padding: .5rem;
+    background-color: $color-black;
+    color: $color-white;
+    font-size: 1.2rem;
+    border-radius: 3px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
+.issueBook {
+    width: 100%;
+    height: 100%;
+    margin: auto 0;
+
+    & input {
+        width: 25rem;
+    }
+
+    & h2 {
+        margin-bottom: 2rem;
+    }
+
+    &__btns {
+        &>* {
+            margin-top: 1rem;
+
+            &:not(:last-child) {
+                margin-right: 1rem;
+            }
+        }
+
+        &>:last-child {
+            background: $color-red;
+
+            &:hover {
+                background: $color-lightcoral;
+            }
+        }        
+    }
+}

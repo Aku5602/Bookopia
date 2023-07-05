@@ -1,19 +1,22 @@
 import React, { useContext, useEffect, useState, useReducer } from "react";
-import "../styles/Modal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEdit,
   faTimes,
   faBars,
-  faCheck,
+  faCheck, 
 } from "@fortawesome/free-solid-svg-icons";
 import StudentDataApi from "../api/StudentDataApi";
 import BookDataApi from "../api/BookDataApi";
-import { UpdateContext } from "../pages/StudentsPage";
+import { UpdateContext } from "../routes/StudentsPage";
 
 const Modal = ({ closeModal, selectedStudentId, selectedStudent }) => {
   const [editDetails, setEditDetails] = useState(selectedStudent);
   const updateContext = useContext(UpdateContext);
+
+  useEffect(()=>{
+    setEditDetails({...selectedStudent});
+  },[selectedStudent]);
 
   const initialState = {
     selectedBookId: null,
@@ -125,7 +128,7 @@ const Modal = ({ closeModal, selectedStudentId, selectedStudent }) => {
       updateContext();
       dispatch({ type: "setBookID", payload: "" });
       dispatch({ type: "setUpdate", payload: !state.update });
-      selectedStudent.books_issued.push(obj);
+      // selectedStudent.books_issued.push(obj);
       dispatch({ type: "setIsAddBookClicked", payload: false });
     });
   }
@@ -137,15 +140,15 @@ const Modal = ({ closeModal, selectedStudentId, selectedStudent }) => {
     StudentDataApi.deleteStudentDataBookInfo(obj).then((res) => {
       updateContext();
       dispatch({ type: "setUpdate", payload: !state.update });
-      closeModal();
+      // closeModal();
     });
   }
 
   return (
     <>
       <div className="modal-wrapper"></div>
-      <div className="modal-container">
-        <div className="col-1-of-2 editDetails">
+      <div className="studentModalContainer modal_content">
+        <div className="col-1-of-2 studentModalContainer__editDetails">
           <button
             className="modal_btn_close"
             onClick={() => {
@@ -157,11 +160,11 @@ const Modal = ({ closeModal, selectedStudentId, selectedStudent }) => {
           </button>
           <div className="profile-container">
             <img
-              className="profile-picture"
+              className="profile-container__profile-picture"
               src={selectedStudent.profilePicture}
               alt="User"
             />
-            <h2 className="modal_title">{selectedStudent.name}</h2>
+            <h2 className="profile-container__name">{selectedStudent.name}</h2>
           </div>
 
           <div className="details-container">
@@ -175,7 +178,7 @@ const Modal = ({ closeModal, selectedStudentId, selectedStudent }) => {
                 disabled={!state.isEditEnabled || state.editedFieldIndex !== 3}
                 className={
                   state.isEditEnabled && state.editedFieldIndex === 3
-                    ? "editable-field"
+                    ? ""
                     : "nonEditable-field"
                 }
                 onChange={(e) => {
@@ -316,7 +319,8 @@ const Modal = ({ closeModal, selectedStudentId, selectedStudent }) => {
             </div>
           </div>
         </div>
-        <div className="col-1-of-2 bookDetails">
+
+        <div className="col-1-of-2 studentModalContainer__bookDetails">
           {state.isAddBookClicked ? (
             <div className="issueBook">
               <h2>Issue a new Book</h2>
@@ -334,14 +338,14 @@ const Modal = ({ closeModal, selectedStudentId, selectedStudent }) => {
               </div>
 
               <div>
-                <div className="BookModal__StudentList Modal_StudenList">
+                <div className="modal__studentList u-studentList--studentModalHeight">
                   {state.bookListAvailable.map((booky) => (
                     <div
                       onClick={() => changeInputValue(booky)}
-                      className="bookModal__studentCards modal_BookCards"
+                      className="modal-horizontal-cards"
                     >
                       <img
-                        className="bookModal__studentImg modal__bookImg"
+                        className="modal-horizontal-cards__image u-modal-horizontal-cards__image--books"
                         src={booky.image}
                         alt=""
                       />
@@ -356,8 +360,8 @@ const Modal = ({ closeModal, selectedStudentId, selectedStudent }) => {
             </div>
           ) : (
             <>
-              <h3>Books:</h3>
-              <div className="Modal__book-carousel">
+              <h3>Books Issued:</h3>
+              <div className="studentModalContainer__book-carousel">
                 {selectedStudent.books_issued.map((book) => (
                   <div key={book.book_id} className="book-item">
                     <button
@@ -406,11 +410,11 @@ const Modal = ({ closeModal, selectedStudentId, selectedStudent }) => {
                     <p>Author: {book.author}</p>
                     <p>ID: {book.book_id}</p>
                     <br />
-                    <p>
+                    <p><span>Date of Issue: </span>
                       {new Date(book.dateOfIssue).getDate() +
-                        " " +
+                        "/" +
                         (new Date(book.dateOfIssue).getMonth() + 1) +
-                        " " +
+                        "/" +
                         new Date(book.dateOfIssue).getFullYear()}
                     </p>
                     <span

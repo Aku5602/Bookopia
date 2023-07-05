@@ -1,0 +1,119 @@
+.form-container {
+    position: fixed;
+    top: 5%;
+    right: 50%;
+    transform: translateX(50%);
+    background: $color-mattBlack;
+    padding: 3rem;
+    color: $color-white;
+    border-radius: .8rem;
+    overflow: hidden;
+    font-size: 1.5rem;
+
+    &__heading {
+        font-size: 2.4rem;
+        font-family: $font-family_worksans;
+        margin-bottom: 1rem;
+    }
+    
+    &__name-fields {
+        display: flex;
+        justify-content: space-between;
+        
+        & input {
+            width: 18rem;
+        }
+    }
+    
+    &__form-group {
+        margin-bottom: 1rem;
+
+        &__form-input {
+            border: none;
+            outline: none;
+            width: 100%;
+        }
+    }
+
+    &__fieldNames {
+        display: block;
+        margin-bottom: .5rem;
+    }
+    
+    &__custom-upload {
+        display: flex;
+        align-items: center;
+    }
+    
+    &__file-input {
+        display: none;
+    }
+    
+    &__file-label {
+        display: inline-block;
+        padding: .5rem 1rem;
+        background-color: $color-grey-dark;
+        color: $color-white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        border: 1px solid transparent;
+
+        &:hover {
+            background-color: $color-grey-dark-3;
+            border: 1px solid $color-white;
+        }
+    }
+    
+    &__btn {
+        display: block;
+        width: 100%;
+        background-color: $color-primary;
+        color: $color-white;
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    
+    &__close-button {
+        position: absolute;
+        right: 1rem;
+        top: 1rem;
+        border: none;
+        outline: none;
+        color: $color-white;
+        cursor: pointer;
+        height: 3rem;
+        width: 3rem;
+        font-size: 2.4rem;
+        background-color: transparent;
+    }
+    
+    &__center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    &__file-name {
+        background-color: $color-grey-light-1;
+        padding: 3px;
+        border-radius: 4px;
+        color: $color-grey-dark;
+        vertical-align: top;
+        font-size: 1.2rem;
+        margin-left: 1rem;
+    }
+    
+    &__fileDP {
+        margin: 2rem 0;
+    }
+}
+
+input[type="text"] {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    outline: none;
+  }

@@ -1,13 +1,19 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext,useEffect } from "react";
 import StudentModal from "./StudentModal";
 import StudentData from "../api/StudentDataApi";
-import { UpdateContext } from "../pages/StudentsPage";
+import { UpdateContext } from "../routes/StudentsPage";
 
 const StudentCards = ({ student }) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedStudentId, setSelectedStudentId] = useState(null);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const updateContext = useContext(UpdateContext);
+
+  useEffect(()=>{
+    if(selectedStudent && student.id === selectedStudent.id) {
+      setSelectedStudent({...student});
+    }
+  },[student])
 
   const handleUpdateClick = () => {
     setSelectedStudentId(student.id);
@@ -29,7 +35,7 @@ const StudentCards = ({ student }) => {
     <>
       <div className="student-card">
         <img src={student.profilePicture} alt="User" />
-        <div className="student-details">
+        <div className="student-card__student-details">
           <h3>{student.name}</h3>
           <p>
             {" "}
@@ -37,10 +43,10 @@ const StudentCards = ({ student }) => {
           </p>
           <p>PRN: {student.id}</p>
           <p>Mobile: {student.mobile}</p>
-          <div className="buttons">
+          <div className="student-card__buttons">
             <button onClick={handleUpdateClick}>Update</button>
             <button
-              className="btn_DEL"
+              className="student-card__buttons--del"
               onClick={() => handleDelete(student.id)}
             >
               Delete
@@ -53,7 +59,7 @@ const StudentCards = ({ student }) => {
         <StudentModal
           closeModal={closeModal}
           selectedStudentId={selectedStudentId}
-          selectedStudent={selectedStudent}
+          selectedStudent={...selectedStudent}
         ></StudentModal>
       )}
     </>

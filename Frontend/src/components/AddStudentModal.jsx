@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import "../styles/AddStudentModal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpload, faTimes } from "@fortawesome/free-solid-svg-icons";
 import StudentData from "../api/StudentDataApi";
 
-const AddStudentModal = ({ closeModal }) => {
+const AddStudentModal = ({ props }) => {
+  const {closeModal,setUpdate} = props;
   const [fileName, setFileName] = useState("");
   const [formData, setFormData] = useState({
     fname: "",
@@ -29,7 +29,7 @@ const AddStudentModal = ({ closeModal }) => {
     data.append("lname", formData.lname);
     data.append("email", formData.email);
     data.append("mobile", formData.mobile);
-    StudentData.postStudentData(data);
+    StudentData.postStudentData(data).then(()=>{setUpdate()});
     closeModal();
   }
 
@@ -37,12 +37,12 @@ const AddStudentModal = ({ closeModal }) => {
     <>
       <div className="modal-wrapper"></div>
       <div className="form-container">
-        <h2>Add Student</h2>
+        <h2 className="form-container__heading">Add Student</h2>
         <div className="line"></div>
-        <form autoComplete="off">
-          <div className="name-fields">
-            <div className="form-group">
-              <label className="fieldNames" htmlFor="first-name">
+        <form autoComplete="off" className="form-container__form">
+          <div className="form-container__name-fields">
+            <div className="form-container__form-group">
+              <label className="form-container__fieldNames" htmlFor="first-name">
                 First Name
               </label>
               <input
@@ -52,12 +52,12 @@ const AddStudentModal = ({ closeModal }) => {
                   setFormData({ ...formData, fname: e.target.value })
                 }
                 name="first-name"
-                className="name-fields__form-input1"
+                className="u-form-container__name-fields--firstInput"
                 required
               />
             </div>
-            <div className="form-group">
-              <label className="fieldNames" htmlFor="last-name">
+            <div className="form-container__form-group">
+              <label className="form-container__fieldNames" htmlFor="last-name">
                 Last Name
               </label>
               <input
@@ -67,14 +67,13 @@ const AddStudentModal = ({ closeModal }) => {
                 onChange={(e) =>
                   setFormData({ ...formData, lname: e.target.value })
                 }
-                className="name-fields__form-input2"
                 required
               />
             </div>
           </div>
 
-          <div className="form-group">
-            <label className="fieldNames" htmlFor="email">
+          <div className="form-container__form-group">
+            <label className="form-container__fieldNames" htmlFor="email">
               Email
             </label>
             <input
@@ -84,13 +83,13 @@ const AddStudentModal = ({ closeModal }) => {
               onChange={(e) =>
                 setFormData({ ...formData, email: e.target.value })
               }
-              className="form-group__form-input"
+              className="form-container__form-group__form-input"
               required
             />
           </div>
 
-          <div className="form-group">
-            <label className="fieldNames" htmlFor="phone">
+          <div className="form-container__form-group">
+            <label className="form-container__fieldNames" htmlFor="phone">
               Phone No
             </label>
             <input
@@ -100,16 +99,16 @@ const AddStudentModal = ({ closeModal }) => {
               onChange={(e) =>
                 setFormData({ ...formData, mobile: e.target.value })
               }
-              className="form-group__form-input"
+              className="form-container__form-group__form-input"
             />
           </div>
 
-          <div className="form-group fileDP">
+          <div className="form-container__form-group form-container__fileDP">
             <div>
-              <div className="custom-upload center">
+              <div className="form-container__custom-upload form-container__center">
                 <label
                   htmlFor="profile-picture"
-                  className="file-label fieldNames"
+                  className="form-container__file-label form-container__fieldNames"
                 >
                   <FontAwesomeIcon icon={faUpload} /> &nbsp;Profile Picture
                 </label>
@@ -117,23 +116,23 @@ const AddStudentModal = ({ closeModal }) => {
                   type="file"
                   id="profile-picture"
                   name="profile-picture"
-                  className="file-input"
+                  className="form-container__file-input"
                   required
                   onChange={handleFileChange}
                 />
-                <div className="file-name">
+                <div className="form-container__file-name">
                   {fileName ? fileName : "No file chosen"}
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="form-group btn-group">
+          <div className="form-container__form-group form-container__btn-group">
             <input
               type="submit"
               value="Submit"
               onClick={(e) => handleSubmit(e)}
-              className="btn submitBtn"
+              className="form-container__btn u-form-container__btn--submit"
             />
           </div>
         </form>

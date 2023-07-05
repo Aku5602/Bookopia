@@ -1,0 +1,39 @@
+.headerContainer {
+  background-color: $color-primary;
+  padding-right: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &__logo {
+    height: 10rem;
+    width: 10rem;
+  }
+  
+  &__tag {
+    position: absolute;
+    left: 15rem;
+    font-size: 2.4rem;
+    font-weight: bold;
+    color: $color-white;
+  }
+  
+  &__operations {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+}
+
+.btn_add {
+  height: 5rem;
+  width: 5rem;
+  color: $color-white;
+  font-size: 3rem;
+  padding: .5rem 1rem;
+  border-radius: 50%;
+}
+
+.searchBar {
+  width: 30rem;
+}

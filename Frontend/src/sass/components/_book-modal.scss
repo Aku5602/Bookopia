@@ -1,0 +1,146 @@
+.bookModalContainer {
+    &__infobookDetails {
+        flex-shrink: 0;
+        flex-basis: 55rem;
+        border-right: 1px solid $color-gray-light-3;
+        padding: 0 1rem;
+        padding-right: 2rem;
+        margin-right: 1rem;
+    }
+
+    &__editDetails {
+        flex-grow: 1;
+        padding-left: 2rem;
+        padding-right: 1rem;
+        min-width: 40rem;
+        max-width: calc(100% - 51rem);
+
+        & h3 {
+            margin-bottom: 2rem;
+        }
+    }
+
+    &__editBookInfo h3,
+    &__editDetails h3 {
+        font-size: 2.5rem;
+    }
+
+    &__delete-icon {
+        margin-left: auto;
+        background: $color-red;
+
+        &:hover {
+            background: $color-lightcoral;
+        }
+    }
+
+    &__addStudent {
+        border-radius: 50%;
+        height: 4rem;
+        width: 4rem;
+        font-size: 2.5rem;
+        padding: 0;
+        position: absolute;
+        right: 9rem;
+        top: 3rem;
+    }
+}
+
+.book-profile {
+    display: flex;
+    align-items: center;
+
+    & h4 {
+        margin-bottom: 1rem;
+    }
+
+    &__book-name {
+        font-size: 2.4rem;
+        font-family: $font-family_worksans;
+    }
+
+    &__book-image {
+        height: 20rem;
+        margin-right: 2rem;
+        border-radius: .5rem;
+        margin-bottom: 3rem;
+    }
+}
+
+.details-container__bookId {
+    margin-top: 1rem;
+    font-size: 1.5rem;
+}
+
+.copyId {
+    font-size: 2rem;
+    color: $color-white;
+
+    &:hover {
+        color: $color-navyBlue;
+        cursor: pointer;
+    }
+}
+
+.input-container input {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.nonEditable-field {
+    color: $color-white;
+    cursor: not-allowed;
+}
+
+.textareaDesc {
+    border-radius: .5rem;
+    background-color: $color-gray-dark-4;
+    padding: 1rem;
+    margin-right: 1rem;
+    scrollbar-width: thin;
+    scrollbar-color: $color-gray-light-4 $color-grey-dark-3;
+
+    &::-webkit-scrollbar {
+        width: 4px;
+
+        &-track {
+            background: $color-grey-dark-3;
+        }
+        
+        &-thumb {
+            background-color: $color-gray-light-4;
+            border-radius: 4px;
+
+            &:hover {
+                background-color: $color-gray-light-3;
+                cursor: default;
+            }
+        }       
+    }    
+
+    &E {
+        border-radius: .5rem;
+        background-color: $color-white;
+        padding: 1rem;
+        margin-right: 1rem;
+
+        &::-webkit-scrollbar {
+            width: 4px;
+
+            &-track {
+                background: $color-grey-dark-3;
+            }
+            
+            &-thumb {
+                background-color: $color-gray-light-4;
+                border-radius: 4px;
+
+                &:hover {
+                    background-color: $color-red;
+                    cursor: default;
+                }
+            }
+        }
+    }
+}

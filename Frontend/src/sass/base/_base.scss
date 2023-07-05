@@ -1,0 +1,65 @@
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+html {
+    font-size: 62.5%;
+
+    @include respond(phone) {
+        font-size: 50%;
+    }
+
+    @include respond(tab-land) {
+        font-size: 56.25%;
+    }
+
+    @include respond(tab-port) {
+        font-size: 50%;
+    }
+
+    @include respond(big-desktop) {
+        font-size: 75%;
+    }
+}
+
+body {
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+::selection {
+    background-color: $color-primary;
+    color: $color-white;
+}
+
+::-webkit-scrollbar {
+    width: .8rem;
+
+    &-track {
+        background-color: $color-black;
+    }
+
+    &-thumb {
+        background: linear-gradient(to top, $color-primary, $color-primary-light);
+        border-radius: .8rem;
+
+        &:hover {
+            background: $color-red;
+        }
+    }
+}
+
+* {
+    scrollbar-color: $color-primary-light $color-black;
+    scrollbar-width: thin;
+
+    &::-moz-scrollbar-thumb {
+        &:hover {
+            background-color: $color-black;
+        }
+    }
+}

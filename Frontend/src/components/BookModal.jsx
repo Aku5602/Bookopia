@@ -1,5 +1,4 @@
 import { useReducer, useState, useEffect, useContext } from "react";
-import "../styles/BookModal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEdit,
@@ -13,11 +12,15 @@ import {
 import copy from "clipboard-copy";
 import StudentDataApi from "../api/StudentDataApi";
 import BookDataApi from "../api/BookDataApi";
-import { UpdateContext } from "../pages/BooksPage";
+import { UpdateContext } from "../routes/BooksPage";
 
 const BookModal = ({ closeModal, selectedBook }) => {
   const [editDetails, setEditDetails] = useState(selectedBook);
   const updateContext = useContext(UpdateContext);
+
+  useEffect(()=>{
+    setEditDetails(selectedBook);
+  },[selectedBook])
 
   const initialState = {
     isEditEnabled: false,
@@ -135,7 +138,6 @@ const BookModal = ({ closeModal, selectedBook }) => {
       dispatch({ type: "setStudentID", payload: "" });
       dispatch({ type: "setUpdate", payload: !state.update });
       dispatch({ type: "setIsAddingStudent", payload: false });
-      selectedBook.students_info.push(obj);
     });
   };
 
@@ -146,7 +148,6 @@ const BookModal = ({ closeModal, selectedBook }) => {
     StudentDataApi.deleteStudentDataBookInfo(obj).then(() => {
       updateContext();
       dispatch({ type: "setUpdate", payload: !state.update });
-      closeModal();
     });
   };
 
@@ -189,20 +190,21 @@ const BookModal = ({ closeModal, selectedBook }) => {
       clearTimeout(progressBarTimeout);
     };
   }, [state.showAlert]);
+
   return (
     <>
       <div className="modal-wrapper"></div>
 
-      <div className="modal-container">
-        <div className="col-1-of-2 BookModal__infobookDetails">
+      <div className="bookModalContainer modal_content u-modal_content--bookModalContainer">
+        <div className="col-1-of-2 bookModalContainer__infobookDetails">
           <button className="modal_btn_close" onClick={closeModal}>
             <FontAwesomeIcon icon={faTimes} />
           </button>
 
           <div className="book-profile">
-            <img className="book-image" src={editDetails.image} alt="User" />
+            <img className="book-profile__book-image" src={editDetails.image} alt="User" />
             <div>
-              <h2 className="modal_title">{editDetails.title}</h2>
+              <h2 className="book-profile__book-name">{editDetails.title}</h2>
               <h4>{editDetails.author}</h4>
             </div>
           </div>
@@ -210,7 +212,7 @@ const BookModal = ({ closeModal, selectedBook }) => {
           <div className="details-container">
             <p>{editDetails.description}</p>
 
-            <p className="bookId">
+            <p className="details-container__bookId">
               BookID:
               <span className="book_id_copy">
                 <strong>{editDetails.book_id}</strong>
@@ -222,7 +224,7 @@ const BookModal = ({ closeModal, selectedBook }) => {
                 </span>
               </abbr>
             </p>
-            <div className="stats currentRecords">
+            <div className="stats u__stats--bookModalContainer">
               <label>Quantity:</label>
               <span>{editDetails.quantity}</span>
               <label>Copies Issued:</label>
@@ -237,14 +239,14 @@ const BookModal = ({ closeModal, selectedBook }) => {
             </button>
           </div>
         </div>
-        <div className="col-1-of-2 BookModal__editDetails">
+        <div className="col-1-of-2 bookModalContainer__editDetails">
           {state.isStudentListClicked ? (
             <div>
               {!state.isAddingStudent && (
                 <div className="isStudentNotClicked">
                   <h3>Enrolled Students:</h3>
                   <button
-                    className="bookModal___addStudent"
+                    className="bookModalContainer__addStudent"
                     onClick={handleAddStudent}
                   >
                     <FontAwesomeIcon icon={faPlus} />
@@ -252,7 +254,7 @@ const BookModal = ({ closeModal, selectedBook }) => {
                 </div>
               )}
               {state.isAddingStudent ? (
-                <div className="bookModal_EntireStudentList">
+                <div>
                   <h3>Add a Student</h3>
                   <input
                     type="text"
@@ -269,15 +271,15 @@ const BookModal = ({ closeModal, selectedBook }) => {
                     <button onClick={handleAssign}>Add</button>
                     <button onClick={handleCancel}>Cancel</button>
                   </div>
-                  <div className="BookModal__StudentList Modal_StudenList">
-                    <p>Select a student or write the id manually:</p>
+                  <div className="modal__studentList u-studentList--bookModalHeight">
+                    <p>Select a student from the list below or enter the id manually:</p>
                     {state.studentListAvailable.map((stud) => (
                       <div
                         onClick={() => changeInputValue(stud)}
-                        className="bookModal__studentCards modal_BookCards"
+                        className="modal-horizontal-cards modal_BookCards"
                       >
                         <img
-                          className="bookModal__studentImg bookModal_round modal__bookImg"
+                          className="modal-horizontal-cards__image u-modal-horizontal-cards__image--round"
                           src={stud.profilePicture}
                           alt=""
                         />
@@ -290,11 +292,11 @@ const BookModal = ({ closeModal, selectedBook }) => {
                   </div>
                 </div>
               ) : (
-                <div className="BookModal__StudentList">
+                <div className="modal__studentList">
                   {selectedBook.students_info.map((student) => (
-                    <div className="bookModal__studentCards">
+                    <div className="modal-horizontal-cards">
                       <img
-                        className="bookModal__studentImg"
+                        className="modal-horizontal-cards__image"
                         src={student.profilePicture}
                         alt=""
                       />
@@ -303,7 +305,7 @@ const BookModal = ({ closeModal, selectedBook }) => {
                         <p>{student.id}</p>
                       </div>
                       <button
-                        className="delete-icon"
+                        className="bookModalContainer__delete-icon"
                         onClick={() => handleDeleteStudent(student.id)}
                       >
                         <FontAwesomeIcon icon={faTrash} />
@@ -315,7 +317,7 @@ const BookModal = ({ closeModal, selectedBook }) => {
             </div>
           ) : (
             <>
-              <div className="editBookInfo">
+              <div className="bookModalContainer__editBookInfo">
                 <h3>Edit book details:</h3>
                 <div className="line"></div>
                 <div className="input-container">

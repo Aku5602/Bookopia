@@ -1,23 +1,18 @@
 import React, { useEffect, useState, createContext, useReducer } from "react";
-import "../styles/Books.css";
 import BookCards from "../components/BookCards";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import BookData from "../api/BookDataApi";
+import Lottie from "lottie-react";
+import loading from "../public/loading.json";
+import cat from "../public/Cat.json";
 
 export const BookContext = createContext();
 export const UpdateContext = createContext();
 
 const Books = () => {
-  // const [loading, setLoading] = useState(false);
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const [bookList, setBookList] = useState([]);
-  // const [currList, setCurrentList] = useState([]);
-  // const [showNoResults, setShowNoResults] = useState(false);
-  // const [update, setUpdate] = useState(0);
-
   const initialState = {
     loading: false,
     currentPage: 1,
@@ -50,18 +45,11 @@ const Books = () => {
 
 
   useEffect(() => {
-    // setLoading(true);
-    dispatch({ type: "setLoading", payload:true });
+    dispatch({ type: "setLoading", payload: true });
     BookData.getBookData().then((res) => {
-      // setBookList([...res.data]);
-      dispatch({ type: "setCurrentList", payload:[...res.data]});
-      dispatch({ type: "setBookList", payload:[...res.data]});
-    dispatch({ type: "setLoading", payload:false });
-
-      // setLoading(false);
-      // setCurrentList([...res.data]);
-     
-
+      dispatch({ type: "setCurrentList", payload: [...res.data] });
+      dispatch({ type: "setBookList", payload: [...res.data] });
+      dispatch({ type: "setLoading", payload: false });
     });
   }, [state.update]);
 
@@ -72,24 +60,17 @@ const Books = () => {
   const startIndex = (state.currentPage - 1) * booksPerPage;
   const endIndex = startIndex + booksPerPage;
 
-  // function createNewStudent() {}
-
   function setUpdate() {
     if (state.update) {
-      dispatch({ type: "setUpdate", payload:0});
-
-      // setDeleteUpdate(0);
+      dispatch({ type: "setUpdate", payload: 0 });
     } else {
-      // setDeleteUpdate(1);
-      dispatch({ type: "setUpdate", payload:1});
+      dispatch({ type: "setUpdate", payload: 1 });
 
     }
   }
 
   function setShowResults(value) {
-    dispatch({ type: "setShowNoResults", payload: value});
-
-    // setShowNoResults(value);
+    dispatch({ type: "setShowNoResults", payload: value });
   }
 
   function bookSearch(text) {
@@ -106,55 +87,56 @@ const Books = () => {
       return false;
     });
 
-
-
     if (arr.length === 0) {
-      // dispatch({ type: "setShowResults", payload:true});
-
       setShowResults(true);
     } else {
-      // dispatch({ type: "setShowResults", payload:false});
-
       setShowResults(false);
     }
-    // console.log(text);
 
-
-   
-    dispatch({ type: "setCurrentPage", payload:1});
-    dispatch({ type: "setCurrentList", payload:arr});
+    dispatch({ type: "setCurrentPage", payload: 1 });
+    dispatch({ type: "setCurrentList", payload: arr });
 
   }
 
   const handlePageChange = (pageNumber) => {
-    // setCurrentPage(pageNumber);
-    dispatch({ type: "setCurrentPage", payload:pageNumber});
+    dispatch({ type: "setCurrentPage", payload: pageNumber });
+  };
 
+  const handleReload = () => {
+    window.location.reload();
   };
 
   return (
-    <div className="library-management-system">
+    <div className="bookPageContainer">
       <BookContext.Provider value={bookSearch}>
-        <Header />
+        <Header setUpdate={setUpdate}/>
       </BookContext.Provider>
 
-      {state.loading && <h1>Loading...</h1>}
-      <div className="book-carousel">
-        {state.currList.slice(startIndex, endIndex).map((book,index) => (
+      {state.loading && <Lottie animationData={loading} className="loadingWidget" />}
+      <div className="bookPageContainer__carousel">
+        {state.currList.slice(startIndex, endIndex).map((book, index) => (
           <UpdateContext.Provider key={index} value={setUpdate}>
             <BookCards key={index} book={book} />
           </UpdateContext.Provider>
         ))}
         {state.showNoResults && (
-          <span className="no-results">
-            <FontAwesomeIcon icon={faExclamationCircle} /> &nbsp;No matching
-            results found!
-          </span>
+          <div className="noResultsWidget">
+          <Lottie animationData={cat} className="noResultsWidget__catAnime" />
+          <div>
+            <span>
+              <FontAwesomeIcon className="noResultsWidget__exclaimIcon" icon={faExclamationCircle} />
+              &nbsp;
+              No results found
+            </span>
+            <p>Please try again with another keywords or maybe use generic information</p>
+              <button onClick={handleReload} className="btn--blackBtn"> &larr; &nbsp; Go Back</button>
+          </div>
+        </div>
         )}
       </div>
 
-      <div className="pagination-container">
-        <ul className="pagination">
+      <div className="pagination-container  u-pagination-container--booksPage">
+        <ul className="pagination-container__paginationWidget">
           {[...Array(totalPages)].map((item, index) => {
             return (
               <li
@@ -169,9 +151,7 @@ const Books = () => {
         </ul>
       </div>
 
-      <div className="footer_container">
-        <Footer />
-      </div>
+      <Footer className="footer--books" />
     </div>
   );
 };

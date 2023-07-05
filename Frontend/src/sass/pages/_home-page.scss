@@ -1,0 +1,118 @@
+.homePageContainer {
+	display: flex;
+	height: 100vh;
+	padding: 4.667rem;
+
+    &__animationScreen1 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-width: 45vw;
+        background: $color-primary-extraLight;
+        border-top-left-radius: .5rem;
+        border-bottom-left-radius: .5rem;
+    }
+}
+
+.content {
+	display: flex;
+	flex-direction: column;
+	min-width: 49vw;
+	background: black;
+	border-top-right-radius: .5rem;
+	border-bottom-right-radius: .5rem;
+	position: relative;
+
+    &__heading {
+        display: flex;
+        flex-direction: column;
+        color: $color-white;
+        align-items: center;
+        position: relative;
+        top: 11.167rem;
+        left: 7.667rem;
+        color: $color-primary-extraLight;
+        max-width: 90%;
+
+        &--primary {
+            font-size: 6.667rem;
+        }
+    
+        &--secondary {
+            font-size: 3rem;
+        }
+    }
+
+    &__logo {
+        position: absolute;
+        left: 6.667rem;
+    }
+
+    &__btnsContainer {
+        display: flex;
+        position: absolute;
+        top: 27.667rem;
+        left: 4.167rem;
+        width: 90%;
+        justify-content: center;
+    }
+
+    &__btn {
+        text-decoration: none;
+        color: $color-white;
+        font-size: 2rem;
+
+        &--students {
+            margin-right: 3rem;
+            background: rgba(251, 236, 93, .9);
+            color: $color-black;
+            min-height: 4rem;
+            padding: 2rem 4rem;
+            text-align: center;
+            vertical-align: middle;
+            border-radius: .5rem;
+            transition: all .3s ease-in-out;
+            &:hover {
+                transform: translateY(-.3rem);
+                background: rgba(251, 236, 93, 1);
+            }
+        }
+    
+        &--books {
+            background: rgba(3, 172, 19, .9);
+            color: $color-white;
+            min-height: 4rem;
+            padding: 2rem 4rem;
+            text-align: center;
+            vertical-align: middle;
+            border-radius: .5rem;
+            transition: all .3s ease-in-out;
+            min-width: 12.667rem;
+            &:hover {
+                transform: translateY(-.3rem);
+                background: rgba(3, 172, 19, 1);
+            }
+        }
+    }
+
+    &__buttonText {
+        display: flex;
+        font-size: 3.667rem;
+    }
+
+    &__copyright {
+        display: flex;
+        position: absolute;
+        bottom: 2.667rem;
+        // left: 25rem;
+        left: calc(100% / 2);
+        transform: translateX(-50%);
+        color: $color-black;
+        font-family: $font-family_antic;
+        font-size: 1.667rem;
+        font-weight: bold;
+        background: $color-grey-dark;
+        padding: 1rem 2rem;
+        border-radius: .5rem;
+    }
+}

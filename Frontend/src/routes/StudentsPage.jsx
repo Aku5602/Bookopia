@@ -1,25 +1,18 @@
 import React, { useReducer, createContext, useEffect } from "react";
-import "../styles/Students.css";
 import StudentCards from "../components/StudentCards";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import StudentData from "../api/StudentDataApi";
-
+import Lottie from "lottie-react";
+import loading from "../public/loading.json";
+import cat from "../public/Cat.json";
 
 export const StudentContext = createContext();
 export const UpdateContext = createContext();
 
 const Students = () => {
-  // const [loading, setLoading] = useState(false);
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const [studentList, setStudentList] = useState([]);
-  // const [currList, setCurrentList] = useState([]);
-  // const [showNoResults, setShowNoResults] = useState(false);
-  // const [deleteUpdate, setDeleteUpdate] = useState(0);
-
-
   const initialState = {
     loading: false,
     currentPage: 1,
@@ -51,59 +44,40 @@ const Students = () => {
         throw new Error();
     }
   }
-  
 
   useEffect(() => {
-    dispatch({ type: "setLoading", payload:true });
-
-    // setLoading(true);
+    dispatch({ type: "setLoading", payload: true });
     StudentData.getStudentData().then((res) => {
-      dispatch({ type: "setCurrentList", payload:[...res.data]});
-        // setCurrentList([...res.data]);
-        dispatch({ type: "setStudentList", payload:[...res.data]});
-        // setStudentList([...res.data]);
-    dispatch({ type: "setLoading", payload:false });
-
-        // setLoading(false);
+      dispatch({ type: "setCurrentList", payload: [...res.data] });
+      dispatch({ type: "setStudentList", payload: [...res.data] });
+      dispatch({ type: "setLoading", payload: false });
     });
 
   }, []);
 
   useEffect(() => {
     StudentData.getStudentData().then((res) => {
-        // setCurrentList([...res.data]);
-      dispatch({ type: "setCurrentList", payload:[...res.data]});
-      dispatch({ type: "setStudentList", payload:[...res.data]});
-
-        // setStudentList([...res.data]);
+      dispatch({ type: "setCurrentList", payload: [...res.data] });
+      dispatch({ type: "setStudentList", payload: [...res.data] });
     });
   }, [state.update]);
 
   const studentsPerPage = 12;
   const totalStudents = state.currList.length;
   const totalPages = Math.ceil(totalStudents / studentsPerPage);
-
   const startIndex = (state.currentPage - 1) * studentsPerPage;
   const endIndex = startIndex + studentsPerPage;
 
-  // function createNewStudent() {}
-
   function setUpdate() {
     if (state.update) {
-      dispatch({ type: "setUpdate", payload:0});
-
-      // setDeleteUpdate(0);
+      dispatch({ type: "setUpdate", payload: 0 });
     } else {
-      // setDeleteUpdate(1);
-      dispatch({ type: "setUpdate", payload:1});
-
+      dispatch({ type: "setUpdate", payload: 1 });
     }
   }
 
   function setShowResults(value) {
-    dispatch({ type: "setShowNoResults", payload: value});
-
-    // setShowNoResults(value);
+    dispatch({ type: "setShowNoResults", payload: value });
   }
 
   function studentSearch(text) {
@@ -122,47 +96,53 @@ const Students = () => {
 
     if (arr.length === 0) {
       setShowResults(true);
-    
-
     } else {
       setShowResults(false);
-  
-
     }
 
-    dispatch({ type: "setCurrentPage", payload:1});
-    dispatch({ type: "setCurrentList", payload:arr});
+    dispatch({ type: "setCurrentPage", payload: 1 });
+    dispatch({ type: "setCurrentList", payload: arr });
   }
 
   const handlePageChange = (pageNumber) => {
-    // setCurrentPage(pageNumber);
-    dispatch({ type: "setCurrentPage", payload:pageNumber});
+    dispatch({ type: "setCurrentPage", payload: pageNumber });
+  };
 
+  const handleReload = () => {
+    window.location.reload();
   };
 
   return (
-    <div className="library-management-system">
+    <div className="studentPageContainer">
       <StudentContext.Provider value={studentSearch}>
-        <Header />
+        <Header setUpdate={setUpdate}/>
       </StudentContext.Provider>
 
-      {state.loading && <h1 className="load">Loading...</h1>}
-      <div className="student-carousel">
+      {state.loading && <Lottie animationData={loading} className="loadingWidget" />}
+      <div className="studentPageContainer__carousel">
         {state.currList.slice(startIndex, endIndex).map((student) => (
           <UpdateContext.Provider key={student.id} value={setUpdate}>
             <StudentCards key={student.id} student={student} />
           </UpdateContext.Provider>
         ))}
         {state.showNoResults && (
-          <span className="no-results">
-            <FontAwesomeIcon icon={faExclamationCircle} /> &nbsp;No matching
-            results found!
-          </span>
+          <div className="noResultsWidget">
+            <Lottie animationData={cat} className="noResultsWidget__catAnime" />
+            <div>
+              <span>
+                <FontAwesomeIcon className="noResultsWidget__exclaimIcon" icon={faExclamationCircle} />
+                &nbsp;
+                No results found
+              </span>
+              <p>Please try again with another keywords or maybe use generic information</p>
+                <button onClick={handleReload} className="btn--blackBtn"> &larr; &nbsp; Go Back</button>
+            </div>
+          </div>
         )}
       </div>
 
       <div className="pagination-container">
-        <ul className="pagination">
+        <ul className="pagination-container__paginationWidget">
           {[...Array(totalPages)].map((item, index) => {
             return (
               <li
@@ -176,10 +156,7 @@ const Students = () => {
           })}
         </ul>
       </div>
-
-      <div className="footer_container">
-        <Footer />
-      </div>
+      <Footer />
     </div>
   );
 };

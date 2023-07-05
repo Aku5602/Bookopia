@@ -1,0 +1,41 @@
+.alert {
+  &-box {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30rem;
+    padding: 1rem;
+    background-color: $color-grey-light-1;
+    border-radius: 4px;
+    box-shadow: 0 2px .5rem rgba(0, 0, 0, 0.2);
+    z-index: 999999;
+    height: 5rem;
+    overflow: hidden;
+  }
+  
+  &-icon {
+    margin-right: 1px;
+    color: $color-green;
+    font-size: 2rem;
+  }
+  
+  &-message {
+    font-size: 1.4rem;
+    font-weight: bold;
+  }
+}
+
+.progress-bar {
+  width: 100%;
+  height: 4px;
+  background-color: $color-navyBlue;
+  border-radius: 2px;
+  margin-top: 4px;
+  animation: progress-animation 3s linear forwards;
+  position: absolute;
+  bottom: 2px;
+}

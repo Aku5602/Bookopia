@@ -1,17 +1,18 @@
 import React, { useContext, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Lottie from "lottie-react";
-import Book from "../data/Book.json";
-import { StudentContext } from "../pages/StudentsPage";
-import { BookContext } from "../pages/BooksPage";
+import Book from "../public/Book.json";
+import { StudentContext } from "../routes/StudentsPage";
+import { BookContext } from "../routes/BooksPage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import AddStudentModal from "../components/AddStudentModal";
 import AddBookModal from "../components/AddBookModal";
 
-const Header = () => {
-  const [showModal, setShowModal] = useState(false);
+const Header = ({setUpdate}) => {
 
+  const [showModal, setShowModal] = useState(false);
+ 
   const location = useLocation();
   const studentSearch = useContext(StudentContext);
   const bookSearch = useContext(BookContext);
@@ -47,26 +48,26 @@ const Header = () => {
         <>
           <abbr title="Add Student">
             <button
-              className="btn_add btn_add_students"
+              className="btn_add"
               onClick={handleStudentAdd}
             >
               <FontAwesomeIcon icon={faPlus} />
             </button>
           </abbr>
 
-          {showModal && <AddStudentModal closeModal={closeModal} />}
+          {showModal && <AddStudentModal props={{closeModal,setUpdate}} />}
         </>
       );
     } else if (location.pathname === "/Books") {
       return (
         <>
           <abbr title="Add Book">
-            <button className="btn_add btn_add_books" onClick={handleBookAdd}>
+            <button className="btn_add" onClick={handleBookAdd}>
               <FontAwesomeIcon icon={faPlus} />
             </button>
           </abbr>
 
-          {showModal && <AddBookModal closeModal={closeModal} />}
+          {showModal && <AddBookModal props={{closeModal,setUpdate}} />}
         </>
       );
     }
@@ -75,14 +76,14 @@ const Header = () => {
   return (
     <>
       {" "}
-      <header>
-        <div style={{ height: "100px", width: "100px" }}>
+      <header className="headerContainer">
+        <div className="headerContainer__logo">
           <Link to="/">
             <Lottie animationData={Book} />
           </Link>
         </div>
-        <h1 className="name">LIBRARY MANAGEMENT SYSTEM</h1>
-        <div className="top-right">
+        <h1 className="headerContainer__tag">LIBRARY MANAGEMENT SYSTEM</h1>
+        <div className="headerContainer__operations">
           <input
             type="text"
             className="searchBar"
