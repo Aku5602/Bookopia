@@ -50,7 +50,7 @@ const BookCards = ({ book }) => {
       {showModal && (
         <BookModal
           closeModal={closeModal}
-          selectedBook={...selectedBook}
+          selectedBook={selectedBook}
         ></BookModal>
       )}
     </>

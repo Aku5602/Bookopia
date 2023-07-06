@@ -2,7 +2,7 @@ import React, { useState, useContext,useEffect } from "react";
 import StudentModal from "./StudentModal";
 import StudentData from "../api/StudentDataApi";
 import { UpdateContext } from "../routes/StudentsPage";
-
+ 
 const StudentCards = ({ student }) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedStudentId, setSelectedStudentId] = useState(null);
@@ -59,7 +59,7 @@ const StudentCards = ({ student }) => {
         <StudentModal
           closeModal={closeModal}
           selectedStudentId={selectedStudentId}
-          selectedStudent={...selectedStudent}
+          selectedStudent={selectedStudent}
         ></StudentModal>
       )}
     </>
