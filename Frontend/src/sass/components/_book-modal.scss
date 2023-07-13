@@ -77,8 +77,11 @@
         top: 3rem;
 
         @include respond(phone){
-            top: 52rem;
+            top: 59rem;
             right: 6rem;
+            height: 5rem;
+            width: 5rem;
+            font-size: 3rem;
         }
     }
 }
