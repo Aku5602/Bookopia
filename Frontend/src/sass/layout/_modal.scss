@@ -18,6 +18,10 @@
     color: $color-white;
     border-radius: .8rem;
     font-size: 1.5rem;
+
+    @include respond(phone){
+        padding: 3rem 1rem !important;
+    }
 } 
 
 .modal__studentList {

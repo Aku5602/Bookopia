@@ -17,6 +17,11 @@
 .u-modal_content--bookModalContainer {
     min-width: 110rem !important;
     min-height: 45rem !important;
+
+    @include respond(phone){
+        min-width: 90vw !important;
+        min-height: 90vh !important;
+    }
 }
 
 .u__stats--bookModalContainer {
