@@ -3,6 +3,10 @@
 	height: 100vh;
 	padding: 4.667rem;
 
+    @include respond(tab-land){
+        padding: 0;
+    }
+
     &__animationScreen1 {
         display: flex;
         justify-content: center;
@@ -11,6 +15,10 @@
         background: $color-primary-extraLight;
         border-top-left-radius: .5rem;
         border-bottom-left-radius: .5rem;
+
+        @include respond(tab-land){
+            display: none;
+        }
     }
 }
 
@@ -23,6 +31,11 @@
 	border-bottom-right-radius: .5rem;
 	position: relative;
 
+    @include respond(tab-land){
+        min-width: 100vw;
+        min-height: 100vh;
+    }
+
     &__heading {
         display: flex;
         flex-direction: column;
@@ -33,6 +46,12 @@
         left: 7.667rem;
         color: $color-primary-extraLight;
         max-width: 90%;
+
+        @include respond(phone){
+            top: 35rem;
+            left: 3rem;
+
+        }
 
         &--primary {
             font-size: 6.667rem;
@@ -55,6 +74,13 @@
         left: 4.167rem;
         width: 90%;
         justify-content: center;
+
+        @include respond(phone){
+            top: 50rem;
+            // left: .7rem;
+            align-items: center !important;
+            width: fit-content;
+        }
     }
 
     &__btn {
@@ -114,5 +140,10 @@
         background: $color-grey-dark;
         padding: 1rem 2rem;
         border-radius: .5rem;
+
+        @include respond(phone){
+            font-weight: light;
+            font-size: 1rem;
+        }
     }
 }

@@ -44,5 +44,9 @@
     &__catAnime {
         height: 30rem;
         width: 30rem;
+
+        @include respond(phone){
+            display: none !important;
+        }
     }
 }

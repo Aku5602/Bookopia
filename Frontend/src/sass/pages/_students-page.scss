@@ -8,5 +8,10 @@
         gap: 2rem;
         justify-content: center;
         padding: 2rem;
+
+        @include respond(phone){
+            padding: 1rem;
+            gap: 1rem;
+        }
     }
 }

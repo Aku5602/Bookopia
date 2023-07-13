@@ -8,6 +8,13 @@
     bottom: 0;
     width: 100%;
 
+    @include respond(phone){
+        position: relative;
+        margin-top: 2.5rem;
+        font-size: 1.4rem;
+        margin-bottom: 0 !important;
+    }
+
     p {
         color: $color-primary-extraLight;
     }

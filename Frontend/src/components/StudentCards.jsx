@@ -59,7 +59,7 @@ const StudentCards = ({ student }) => {
         <StudentModal
           closeModal={closeModal}
           selectedStudentId={selectedStudentId}
-          selectedStudent={...selectedStudent}
+          selectedStudent={selectedStudent}
         ></StudentModal>
       )}
     </>
