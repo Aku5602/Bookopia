@@ -1,5 +1,6 @@
+require('dotenv').config(); 
 const express = require('express');
-const studentData = require("./routes/studentData");
+const studentData = require("./routes/StudentData");
 const bookData = require("./routes/bookData");
 const cors = require("cors");
 const StudentDetails = require("./database/schemas/StudentDetails");
@@ -7,11 +8,9 @@ const StudentDetails = require("./database/schemas/StudentDetails");
 
 const app = express();
 
-const port = 3001;
+const port = +process.env.PORT;
 
-app.use(cors({
-    origin: ["http://localhost:5173", "http://127.0.0.1:5173"]
-}));
+app.use(cors({}));
 
 app.use(express.json());
 

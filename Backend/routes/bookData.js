@@ -19,14 +19,12 @@ router.get("/bookData/Available/:id", async (request, response) => {
     const id = request.params.id;
     // console.log(id);
     const bookData = await BookDetails.find({'quantity':{$gt:0},'students_info.id':{$ne:id}}).sort({'no': 1});
-    // console.log(bookData[0]);
     response.send(JSON.stringify(bookData));
 })
 
 //Create 
 router.post("/bookData", uploader.single("file"), async (request, response) => {
     // const LoginUser = await Login.findOne();
-    // console.log(request.body, "  File: ",request.file.path);
     const obj = { ...request.body }
     const prevBook = await BookDetails.find({}).sort({ 'no': -1 }).limit(1);
     obj.no = prevBook[0].no + 1;
@@ -54,7 +52,6 @@ router.patch("/bookData", async (request, response) => {
     const obj = { ...request.body }
     
     const bookDataEditResponse = await BookDetails.updateOne({ '_id':obj._id }, { $set: {[request.body.key]:request.body.value} });
-    // console.log(bookDataEditResponse);
     response.sendStatus(200);
 })
 
