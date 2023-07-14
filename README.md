@@ -232,13 +232,14 @@ Go to http://localhost:5173 in any browser to see the application running.
 
 - Backend:  
 
-  <img src="https://sugamphirke.com/Projects/LMS/img/BackendFS.png" height="300" style="outline:1px solid #ffffff;">
+  <img src="https://sugamphirke.com/Projects/LMS/img/BackendFS.png" height="300">
 - Frontend:  
 
-  1.&nbsp;&nbsp;<img src="https://sugamphirke.com/Projects/LMS/img/FrontendFS1.png" height="300" style="outline:1px solid #ffffff;">&nbsp;&nbsp;&nbsp;&nbsp;
-  2.&nbsp;&nbsp;<img src="https://sugamphirke.com/Projects/LMS/img/FrontendFS2.png" height="300" style="outline:1px solid #ffffff;">&nbsp;&nbsp;&nbsp;&nbsp;
-  3.&nbsp;&nbsp;<img src="https://sugamphirke.com/Projects/LMS/img/FrontendFS3.png" height="300" style="outline:1px solid #ffffff;">&nbsp;&nbsp;&nbsp;&nbsp;
-  4.&nbsp;&nbsp;<img src="https://sugamphirke.com/Projects/LMS/img/FrontendFS4.png" height="120" style="outline:1px solid #ffffff;">
+  1.&nbsp;&nbsp;<img src="https://sugamphirke.com/Projects/LMS/img/FrontendFS1.png" height="300">&nbsp;&nbsp;&nbsp;&nbsp;
+  2.&nbsp;&nbsp;<img src="https://sugamphirke.com/Projects/LMS/img/FrontendFS2.png" height="300">&nbsp;&nbsp;&nbsp;&nbsp;
+  3.&nbsp;&nbsp;<img src="https://sugamphirke.com/Projects/LMS/img/FrontendFS3.png" height="300">&nbsp;&nbsp;&nbsp;&nbsp;
+  
+  4.&nbsp;&nbsp;<img src="https://sugamphirke.com/Projects/LMS/img/FrontendFS4.png" height="120">
 
 ## <span id="future-work">Future Work <span style="font-size: .9em;"> (as of 14-07-23)</span></span>
 
@@ -283,26 +284,16 @@ Go to http://localhost:5173 in any browser to see the application running.
 
 
 ## Authors
-<div style="display: flex; align-items: center;">
-<div style="display: flex; align-items: center; flex-direction: column; min-width:100px;">
-  <img src="https://sugamphirke.com/Projects/LMS/img/blue.png" height="80" />
-  <a href="https://www.github.com/sugamphirke016">@sugamphirke016</a>
-</div>  
-<div style="display: flex; align-items: center; flex-direction: column; min-width:100px;">
-  <img src="https://sugamphirke.com/Projects/LMS/img/author2-small.png" height="80" />
-  <a href="https://github.com/Aku5602">@Aku5602</a>
-</div>  
-<div style="display: flex; align-items: center; flex-direction: column; min-width:110px;">
-  <img src="https://sugamphirke.com/Projects/LMS/img/author1-small.png" height="80" />
-  <a href="https://github.com/Bhushan56">@Bhushan56</a>
-</div>
-</div>
+ <a href="https://www.github.com/sugamphirke016"><img src="https://sugamphirke.com/Projects/LMS/img/blue.png" height="80" alt="@sugamphirke016" /></a> &nbsp;&nbsp;&nbsp;
+  <a href="https://github.com/Aku5602"><img src="https://sugamphirke.com/Projects/LMS/img/author2-small.png" height="80" alt="@Aku5602" /></a> &nbsp;&nbsp;&nbsp;
+  <a href="https://github.com/Bhushan56"><img src="https://sugamphirke.com/Projects/LMS/img/author1-small.png" height="80" alt="@Bhushan56" /></a>
+
 
 
 ## Acknowledgement
-<img src="https://sugamphirke.com/Projects/LMS/img/afour.jpg" height="100" style="outline:1px solid #ffffff;">&nbsp;&nbsp;&nbsp;&nbsp;
-<img src="https://sugamphirke.com/Projects/LMS/img/afourathon.png" height="100" style="outline:1px solid #ffffff;">&nbsp;&nbsp;&nbsp;&nbsp;
-<img src="https://sugamphirke.com/Projects/LMS/img/pccoe-logo.jpg" height="100" style="outline:1px solid #ffffff;">
+<img src="https://sugamphirke.com/Projects/LMS/img/afourtech.jpg" height="100">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://sugamphirke.com/Projects/LMS/img/afourathon.jpg" height="100">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://sugamphirke.com/Projects/LMS/img/pccoe-logo.jpg" height="100">
 
 
 ## Feedback
