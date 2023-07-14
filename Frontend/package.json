@@ -12,7 +12,8 @@
     "compile:sass": "node-sass ./src/sass/main.scss ./src/css/styles.css",
     "prefix:css": "postcss --use autoprefixer -b 'last 10 versions' ./src/css/styles.css -o ./src/css/styles.prefix.css",
     "compress:css": "node-sass ./src/css/styles.prefix.css ./src/css/styles.min.css --output-style compressed",
-    "build:css": "npm-run-all compile:sass prefix:css compress:css"
+    "build:css": "npm-run-all compile:sass prefix:css compress:css",
+    "devserver": "npm-run-all dev watch:sass"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
