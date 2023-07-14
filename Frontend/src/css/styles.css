@@ -29,7 +29,8 @@ body {
   color: #FFF; }
 
 ::-webkit-scrollbar {
-  width: .8rem; }
+  width: .8rem;
+  height: .8rem; }
   ::-webkit-scrollbar-track {
     background-color: #000; }
   ::-webkit-scrollbar-thumb {
@@ -463,8 +464,8 @@ button,
   padding-right: 2rem; }
   @media only screen and (max-width: 35.7em) {
     .studentModalContainer__bookDetails {
-      padding-left: 1rem;
-      padding-right: 1rem;
+      padding-left: 0;
+      padding-right: 0;
       min-width: unset; } }
   .studentModalContainer__bookDetails h3 {
     margin-bottom: 2rem; }
@@ -479,6 +480,13 @@ button,
   max-height: 46rem;
   overflow-y: auto;
   overflow-x: hidden; }
+  @media only screen and (max-width: 35.7em) {
+    .studentModalContainer__book-carousel {
+      flex-wrap: nowrap;
+      overflow-y: hidden;
+      overflow-x: auto;
+      justify-content: flex-start;
+      padding-left: 1rem; } }
 
 .book-item {
   margin: 1rem;
@@ -486,10 +494,10 @@ button,
   border: 1px solid #CCC;
   border-radius: .5rem;
   box-sizing: border-box;
-  height: auto;
   transition: transform all .5 ease;
   position: relative;
-  max-width: 20rem; }
+  max-width: 20rem;
+  flex-shrink: 0; }
   .book-item:hover {
     background: #000;
     transform: scale(1.04); }
