@@ -25,7 +25,7 @@
 </p>
 
 
-**B**ookopia is a exemplary web project that seamlessly combines advanced technologies, superior coding practices, and captivating design aesthetics to build a library management system. It is specially developed by Team <span style="color:orangered;">Dev Rookies</span> for the <span style="color:orangered;">Afourathon</span> hackathon. Built using the MERN stack and incorporating cloud-based technologies such as Cloudinary and Multer, the system enables librarians to efficiently manage student and book records. It provides functionalities for adding, updating, and deleting student and book information, ensuring the persistence of data in the MongoDB Atlas database. With a user-friendly interface and seamless integration of various technologies, Bookopia offers librarians a reliable solution for streamlining library operations.
+**B**ookopia is an exemplary web project that seamlessly combines advanced technologies, superior coding practices, and captivating design aesthetics to build a library management system. It is specially developed by Team [Dev Rookies]() for the [Afourathon](https://afourathon.com/) hackathon. Built using the MERN stack and incorporating cloud-based technologies such as Cloudinary and Multer, the system enables librarians to efficiently manage student and book records. It provides functionalities for adding, updating, and deleting student and book information, ensuring the persistence of data in the MongoDB Atlas database. With a user-friendly interface and seamless integration of various technologies, Bookopia offers librarians a reliable solution for streamlining library operations.
 
 [Visit website](https://college-management-project-23n2.vercel.app/  "Checkout the hosted website")
 •
