@@ -201,13 +201,13 @@ API_SECRET = "//Enter your api_secret key"
   npm run dev
 ```
 
-### Go to the Frontend of project directory
+### Go to the Frontend of the project directory
 
 ```bash
   cd Bookopia/Frontend
 ```
 
-### Install dependencies and generate .env file
+### Install dependencies and generate a .env file
 
 ```bash
    npm install
@@ -223,7 +223,7 @@ VITE_BASE_URL = "http://localhost:3001/"
 ```
 Go to http://localhost:5173 in any browser to see the application running.
 
-### To build the final css file
+### To build the final minified CSS file
 ```bash
   npm run build:css
 ```
@@ -232,20 +232,19 @@ Go to http://localhost:5173 in any browser to see the application running.
 
 - Backend:  
 
-  <img src="https://sugamphirke.com/Projects/LMS/img/BackendFS.png" height="300">
+  <img src="https://sugamphirke.com/Projects/LMS/img/BackendFS.jpg" height="300">
 - Frontend:  
 
-  1.&nbsp;&nbsp;<img src="https://sugamphirke.com/Projects/LMS/img/FrontendFS1.png" height="300">&nbsp;&nbsp;&nbsp;&nbsp;
-  2.&nbsp;&nbsp;<img src="https://sugamphirke.com/Projects/LMS/img/FrontendFS2.png" height="300">&nbsp;&nbsp;&nbsp;&nbsp;
-  3.&nbsp;&nbsp;<img src="https://sugamphirke.com/Projects/LMS/img/FrontendFS3.png" height="300">&nbsp;&nbsp;&nbsp;&nbsp;
+  1.&nbsp;&nbsp;<img src="https://sugamphirke.com/Projects/LMS/img/FrontendFS1.jpg" height="300">&nbsp;&nbsp;&nbsp;&nbsp;
+  2.&nbsp;&nbsp;<img src="https://sugamphirke.com/Projects/LMS/img/FrontendFS2.jpg" height="300">&nbsp;&nbsp;&nbsp;&nbsp;
+  3.&nbsp;&nbsp;<img src="https://sugamphirke.com/Projects/LMS/img/FrontendFS3.jpg" height="300">&nbsp;&nbsp;&nbsp;&nbsp;
   
-  4.&nbsp;&nbsp;<img src="https://sugamphirke.com/Projects/LMS/img/FrontendFS4.png" height="120">
+  4.&nbsp;&nbsp;<img src="https://sugamphirke.com/Projects/LMS/img/FrontendFS4.jpg" height="120">
 
 ## <span id="future-work">Future Work <span style="font-size: .9em;"> (as of 14-07-23)</span></span>
 
 - Fine Managment
-- Fixing Refresh link-breaking bug
-- Concurrency
+- Fixing Refresh link-breaking buManagementrrency
 - Login & Signup Authentication
 - Form validation
 - Book recommendation
