@@ -30,7 +30,8 @@
 [Visit website](https://college-management-project-23n2.vercel.app/  "Checkout the hosted website")
 •
 [Visit documentation](https://sugamphirke.com/Docs/bookopia.html/  "Checkout the documentation")
-
+•
+[Visit presentation](https://www.youtube.com/watch?v=sItvQpeGKDY  "Checkout the video")
 
 ## Features
 
