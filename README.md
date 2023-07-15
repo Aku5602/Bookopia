@@ -29,7 +29,7 @@
 
 [Visit website](https://college-management-project-23n2.vercel.app/  "Checkout the hosted website")
 •
-[Visit documentation](https://sugamphirke.com/Docs/bookopia.html/  "Checkout the documentation")
+[Visit documentation](https://sugamphirke.com/Projects/LMS/Team%20Dev%20Rookies.pdf  "Checkout the report")
 •
 [Visit presentation](https://www.youtube.com/watch?v=sItvQpeGKDY  "Checkout the video")
 
