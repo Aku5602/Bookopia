@@ -104,6 +104,8 @@ router.delete("/studentData/:id", async (request, response) => {
         id = "" + id;
     }
 
+    // console.log("id=",id)
+
     const studentData = await StudentDetails.find({ 'id': id });
 
     const publicId = getPublicIdFromUrl(studentData[0].profilePicture);
@@ -111,6 +113,16 @@ router.delete("/studentData/:id", async (request, response) => {
     cloudinary.v2.api
         .delete_resources([publicId],
             { type: 'upload', resource_type: 'image' });
+
+        const arr = studentData[0].books_issued;
+        // console.log(arr);
+        
+
+        for(let i=0;i<arr.length;i++) {
+            const increaseQuantityResponse = await BookDetails.updateOne({'book_id':arr[i].book_id},{$inc:{'quantity':1,'copies_issued':-1},$pull:{"students_info":{'id':id}}});
+            // console.log(arr.book_id," ",id," ",increaseQuantityResponse);
+        }
+
 
     await StudentDetails.deleteOne({ 'id': id });
 

@@ -1,6 +1,7 @@
 const express = require("express");
 const { Router} = require('express');
 //book schema
+const StudentDetails = require("../database/schemas/StudentDetails");
 const BookDetails = require("../database/schemas/BookDetails")
 const cloudinary = require("../cloudinaryInfo/cloudinary");
 const uploader = require("../cloudinaryInfo/multer");
@@ -73,6 +74,14 @@ router.delete("/bookData/:no", async (request, response) => {
     cloudinary.v2.api
         .delete_resources([publicId],
             { type: 'upload', resource_type: 'image' })
+
+            const arr = bookData[0].students_info;
+
+            for(let i=0;i<arr.length;i++) {
+                const bookDeleteResponse = await StudentDetails.updateOne({'id':arr[i].id},{"$pull":{"books_issued":{"book_id":bookData[0].book_id}}});
+            }
+
+           
 
 
     await BookDetails.deleteOne({ 'no': no }).then((res) => {
