@@ -1,4 +1,4 @@
-// mongodb+srv://system:<password>@cluster.qk2mvko.mongodb.net/?retryWrites=true&w=majority
+
 const mongoose = require("mongoose");
 
 mongoose.connect(process.env.MONGO_URL).
