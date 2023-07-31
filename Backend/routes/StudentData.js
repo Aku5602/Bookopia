@@ -18,9 +18,7 @@ router.get("/studentData", async (request, response) => {
 router.get("/studentData/Available/:id", async (request, response) => {
     // const LoginUser = await Login.findOne();
     const id = request.params.id;
-    // console.log(id);
     const studentData = await StudentDetails.find({'books_issued.book_id':{$ne:id}}).sort({'id': 1});
-    // console.log(studentData[0]);
     response.send(JSON.stringify(studentData));
 })
 
@@ -32,11 +30,9 @@ router.post("/studentData", uploader.single("file"), async (request, response) =
     let id = +prevStud[0].id + 1;
     if (id < 100) {
         id = "0" + id;
-        // console.log(id);
     }
     else {
         id = "" + id;
-        // console.log(id);
     }
     obj.id = id;
     obj.name = obj.fname + " " + obj.lname;
@@ -53,10 +49,7 @@ router.post("/studentData", uploader.single("file"), async (request, response) =
 router.patch("/studentData", async (request, response) => {
     // const LoginUser = await Login.findOne();
     const obj = { ...request.body }
-    // console.log(obj);
-    // console.log(obj._id,await StudentDetails.findOne({'_id':obj._id }));
     const studentDataEditResponse = await StudentDetails.updateOne({ '_id':obj._id }, { $set: {[request.body.key]:request.body.value} });
-    // console.log(studentDataEditResponse);
     response.sendStatus(200);
 })
 
@@ -67,8 +60,8 @@ router.patch("/studentData/BookInfo", async (request, response) => {
     obj1.name = obj.name;
     obj1.id = obj.id;
     obj1.profilePicture = obj.profilePicture;
-    console.log(obj);
-    console.log(obj1);
+    // console.log(obj);
+    // console.log(obj1);
     
     const studentDataEditResponse = await StudentDetails.updateOne({ '_id':obj._id }, { $push: {'books_issued':obj}} );
     // console.log(studentDataEditResponse);
