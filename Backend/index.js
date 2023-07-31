@@ -18,7 +18,6 @@ app.use(studentData);
 app.use(bookData);
 
 cron.schedule('* * * * *', () => { 
-    console.log('running a task every minute',new Date().getMinutes());
 });
 // require("./routes/server");
 
